@@ -1,0 +1,22 @@
+{% extends 'manager/base.html' %}
+
+{% block head %}
+  <style>  
+  </style>
+{% endblock %}
+
+{% block body %}
+<a href="/new">Add new part</a>
+<h1>Welcome to the admin page, {{ user.name }}</h1>
+<p>All parts</p>
+
+{% for part in parts %}
+  <a href="/parts/{{ part.number }}/edit"><p>{{ part.number }}-{{ part.name }}</p></a><a href="/parts/{{ part.number }}/remove">Del</a>
+{% empty %}
+  <p>No parts yet :(, maybe add some?</p>
+{% endfor %}
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

@@ -1,0 +1,15 @@
+﻿{% extends 'manager/base.html' %}
+
+{% block info %}  
+    <title>Edit or Add</title>
+    <meta name="description" content="Edit a part">
+{% endblock %}
+{% block body %}
+  <div style="position: absolute">
+    <h1>New part</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save</button>
+    </form>
+  </div>
+{% endblock %}
