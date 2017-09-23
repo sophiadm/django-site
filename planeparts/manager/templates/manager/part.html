@@ -1,0 +1,23 @@
+﻿{% extends 'manager/base.html' %}
+
+{% block head %}
+  <style>  
+  </style>
+{% endblock %}
+
+{% block body %}
+<div>
+  <a href="edit">Edit</a>
+  <a href="remove">Delete</a>
+</div>
+<h1>{{ type.name }}-{{ type.number }}</h1>
+Price: <p>{{ type.price }}</p>
+Condition: <p>{{ type.condition }}</p>
+Quantity: <p>{{ type.quantity }}</p>
+Description: <p>{{ type.description|linebreaks }}</p>
+
+<p>Contact bla bla</p>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'manager/base.html' %}
+
+{% block head %}
+  <style>  
+  .tr-link {
+    position: absolute;
+	width: 100%;
+  }
+  </style>
+{% endblock %}
+
+{% block body %}
+{% if user.is_authenticated %}
+  <a href="/new">Add new part</a>
+{% endif %}
+<p>A list of parts that match "{{ query }}"</p>
+
+<table>
+  <tr>
+    <th>Number</th>
+    <th>Name</th>
+    <th>Item</th>
+	<th>Price</th>
+	<th>Qty</th>
+  </tr>
+  
+{% for part in parts %}
+  <tr>
+    <td>{{ part.number }}</td>
+	<td>{{ part.name }}</td>
+	<td>{{ part.itemtype }}</td>
+	<td>{{ part.quantity }}</td>
+	<td>{{ part.price }}</td>
+	
+    <a href="/parts/{{ part.number }}" class="tr-link"></a>
+  </tr>
+{% endfor %}
+</table>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

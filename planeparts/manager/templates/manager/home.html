@@ -1,0 +1,32 @@
+﻿{% extends 'manager/base.html' %}
+
+{% block head %}
+
+  <style>  
+  </style>
+{% endblock %}
+
+{% block body %}
+	<p>CFS Aero is an EASA145 MRO who repair and overhaul modern piston and turbine engines.
+When the company was founded over 25 years ago its focus was on Classic Engines which it
+now no longer supports. Accordingly, the company has a large number of parts within its
+stores which it is selling off to private collectors and commercial operators.</p>
+
+  <form id="searchform" action="{% url 'search' %}" method="get" accept-charset="utf-8">
+    <p>Search:</p>
+    <input size="35" name="part" placeholder="Part number" type="text">
+    <button class="emailbutton" type="submit">Go</button>
+	<p>Enter the aircraft number you would like to locate or a relevent keyword in its description</p>
+  </form>
+  
+  {% for part in parts %}
+    <h3>{{ part.number }}-{{ part.name }}</h3>
+	<p>{{ part.price }}</p>
+  {% empty %}
+    <p>We don't have anything in stock at the moment :(</p>
+  {% endfor %}
+  
+{% endblock %}
+
+{% block script %}
+{% endblock %}

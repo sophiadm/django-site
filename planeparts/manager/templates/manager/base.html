@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <title>CFS Aero Parts</title>
+  <link rel="icon" href="http://www.cfsaero.com/favicon.ico">
+  {% block head %}
+  {% endblock %}
+  <style>
+    body {
+      font-family: Verdana, Geneva, sans-serif !important;
+      margin: 0px;
+	}
+  </style>
+</head>
+
+<body>
+  <div id="background"></div>
+  <nav id="navbar">
+    <img src="https://goo.gl/cCG1b7" alt="Logo"></img>
+    <div id="floaty">
+      <a href="/">Home</a>
+      {% if user.is_authenticated %}
+	    <a href="/new">Add</a>
+        <a href="">Logout</a>
+      {% endif %}
+    </div>
+
+  {% if request.path != "/" %}
+    <form id="searchform" action="{% url 'search' %}" method="get" accept-charset="utf-8">
+      <input name="search" type="text" placeholder="Search">
+      <button class="searchbutton" type="submit">Go</button>
+    </form>
+  {% endif %}
+  </nav>
+  
+  <div class="contentcontainer">
+    {% block body %}
+    {% endblock %}
+  </div>
+  
+  <script>
+  {% block script %}
+  {% endblock %}
+  </script>
+</body>
+</html>
