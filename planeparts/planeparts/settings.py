@@ -25,8 +25,11 @@ SECRET_KEY = 'tx$jjl6v@+&yv=)5!kat(6)ib-+p(%4yu2_w1n@)y)$3idolx5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'sophiadm.pythonanywhere.com',
+    'cfsaeroparts.com',
+    '127.0.0.1',
+]
 
 # Application definition
 

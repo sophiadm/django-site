@@ -1,11 +1,5 @@
 from django import forms
-from .models import Part, PartType
-
-class PartForm(forms.ModelForm):
-
-    class Meta:
-        model = Part
-        fields = ('partType', 'condition', 'price',)
+from .models import PartType
 
 class PartTypeForm(forms.ModelForm):
 
