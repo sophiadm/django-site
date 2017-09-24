@@ -2,24 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-from .forms import PartForm, PartTypeForm
-from .models import Part, PartType
+from .forms import PartTypeForm
+from .models import PartType
 
 def find(number=1, **conditions):
-    if not conditions:
-        conditions = {"name":True}
     try:
         return PartType.objects.filter(**conditions).exclude(quantity=0)[:number]
     except IndexError:
         return PartType.objects.filter(**conditions).exclude(quantity=0)
 
-def filter_match(request, function, search):
+def filter_match(request, function, search_):
     matchparts = list(filter(function, PartType.objects.all()))
     if matchparts: #if matches name or type
-        return render(request, 'manager/part_list.html', {'parts':matchparts, 'query':search})
+        return render(request, 'manager/part_list.html', {'parts':matchparts, 'query':search_})
 
     else:
         return "no match"
+    
 def home(request): #Gets list of all posts for homepage
     parts = find(number=2)
     return render(request, 'manager/home.html',{'parts': parts})
@@ -34,8 +33,9 @@ def search(request):
 
     if PartType.objects.filter(number=Search): #if matches number
         return redirect('/parts/' + Search)
-    
+
     parts = PartType.objects.filter(Q(number__icontains=Search)) #if in number
+    
     if parts:
         return render(request, 'manager/part_list.html', {'parts':parts, 'query':Search})
 
@@ -51,8 +51,7 @@ def search(request):
     for func in find_my_results:
         matches = filter_match(request, func, Search)
         if matches != "no match":
-            return matches
-        
+            return matches        
 
     return render(request, 'manager/error.html', {'msg': "We don't have that part in stock, please check back soon :)"})
 

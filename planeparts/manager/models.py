@@ -13,18 +13,3 @@ class PartType(models.Model):
     def __str__(self):
         return self.name
 
-class Part(models.Model):
-    partType = models.ForeignKey('manager.PartType', related_name='Type')
-
-    conditions = (
-             (1,'New'),
-             (2,'Refurbished'),
-             (3,'Used'),
-             (4,'For parts/not working'),
-            )
-
-    condition = models.IntegerField(choices=conditions)
-    price = models.IntegerField()
-    
-    def __str__(self):
-        return self.partType
