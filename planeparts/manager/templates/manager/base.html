@@ -15,10 +15,10 @@
 	  top: 0px;	 
 	  width: 100%;
 	  
-	  background: red; /* For browsers that do not support gradients */
-      background: -webkit-linear-gradient(red, yellow); /* For Safari 5.1 to 6.0 */
-      background: -o-linear-gradient(red, yellow); /* For Opera 11.1 to 12.0 */
-      background: -moz-linear-gradient(red, yellow); /* For Firefox 3.6 to 15 */
+	  background: black; /* For browsers that do not support gradients */
+      background: -webkit-linear-gradient(#010101, #000002); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(#010101, #000002); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(#010101, #000002); /* For Firefox 3.6 to 15 */
       background: linear-gradient(#010101, #000002); /* Standard syntax */
 	}
 	#navbar img {
@@ -46,7 +46,7 @@
 	  right: 10px;
       top: 50px;
 	}
-	#searchform:after {
+	.arrow {
 	  bottom: 100%;
 	  border: solid transparent;
 	  content: " ";
@@ -57,13 +57,62 @@
 	  border-color: rgba(0, 0, 0, 0);
 	  border-bottom-color: #4ec6d3;
 	  border-width: 10px;
-	  margin-left: 110px;
+	  margin-right: 0px;
+	  right: 0px;
     }
 	#navbar .navlink:hover {
 	  text-decoration: underline;
 	}
+	
+	.partTable {
+      border-collapse: collapse;
+      margin: auto;
+      text-align: center;
+    }
+    .partTable tr {
+      cursor: pointer;
+    }
+	.partTable {
+      border-collapse: collapse;
+      margin: auto;
+      text-align: center;
+    }
+    .partTable tr {
+      cursor: pointer;
+    }
+    .partTable tr:nth-of-type(even) {
+      background-color: #eaeaea;
+    }
+    .row:hover {
+      background-color: #4ec6d3 !important;
+	  border: none;
+    }
+    .partTable td{
+      padding: 5px 10px;
+    }
+    .tr-link {
+      position: absolute;
+	  width: 100%;
+    }
+
+    .partTable tr:nth-of-type(even) {
+      background-color: #eaeaea;
+    }
+    .row:hover {
+      background-color: #4ec6d3 !important;
+	  border: none;
+    }
+    .partTable td{
+      padding: 5px 10px;
+    }
+    .tr-link {
+      position: absolute;
+	  width: 100%;
+    }
+
 	.contentcontainer {
 	  margin: 100px 0px 0px 0px;
+	  text-align: center;
 	}
   </style>
 </head>
@@ -83,8 +132,9 @@
       <a class="navlink" href="">Contact us</a>	    
     {% endif %}
 	<div id="searchything">
-      <a id="nav-search" class="navlink">Search</a>
+      <a id="nav-search" class="navlink{% if request.path|slice:"0:7" == "/search" %} selected{% endif %}">Search</a>
       <form id="searchform" action="{% url 'search' %}" method="get" accept-charset="utf-8">
+	    <span class="arrow"></span>
 	    <input name="search" type="text" placeholder="Search">
 	    <button class="searchbutton" type="submit">Go</button>
 	  </form>
@@ -96,19 +146,16 @@
     {% endblock %}
   </div>
   
-  {% if not user.is_authenticated %}
-    <a href="/login">Log in</a>
-  {% endif %]
-  {% endif %}
+  <p>If you would like to purchase a part or if you have any questions on its condition
+  please do not hesitate to call Mark Bird on 02476 305 873 or email us at admin@cfsaero.com </p>  
   <script>  
   //tagtipleft = width / 100 * 92.25 - 40 + "px";
   //alert(tagtipleft)
 
   document.getElementById("searchything").addEventListener("mouseover", function(){
     var a = document.getElementById("nav-search")
-    var left = a.getBoundingClientRect().left + window.scrollX + a.width / 2;
-	console.log(a.getBoundingClientRect().left)
-    document.getElementById("searchform").style.left = left;
+	var right = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 60) / 14 - 10;
+	document.getElementsByClassName("arrow")[0].style.marginRight = right + "px";
     document.getElementById("searchform").style.display = "block";
   })
   document.getElementById("searchything").addEventListener("mouseleave", function(){

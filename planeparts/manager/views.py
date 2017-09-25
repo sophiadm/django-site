@@ -17,8 +17,8 @@ def filter_match(request, function, search_):
         return render(request, 'manager/part_list.html', {'parts':matchparts, 'query':search_})
 
     else:
-        return "no match"
-    
+        return "no match" 
+   
 def home(request): #Gets list of all posts for homepage
     parts = find(number=2)
     return render(request, 'manager/home.html',{'parts': parts})
@@ -26,8 +26,8 @@ def home(request): #Gets list of all posts for homepage
 #This function is hideous
 #Have fun debugging :)
 #Eh I'll add some comments to help
-def search(request):
-    Search = request.GET.get('search')
+def search_parts(request):
+    Search = request.GET.get('part')
     if not Search:
         return render(request, 'manager/error.html', {'msg': "Please enter a query"})
 
