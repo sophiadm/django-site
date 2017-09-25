@@ -2,6 +2,24 @@
 
 {% block head %}
   <style>  
+  .partTable {
+    border-collapse: collapse;
+    margin: auto;
+    text-align: center;
+  }
+  .partTable tr {
+    cursor: pointer;
+  }
+  .partTable tr:nth-of-type(even) {
+    background-color: #eaeaea;
+  }
+  .row:hover {
+    background-color: #4ec6d3 !important;
+	border: none;
+  }
+  .partTable td{
+    padding: 5px 10px;
+  }
   .tr-link {
     position: absolute;
 	width: 100%;
@@ -15,7 +33,7 @@
 {% endif %}
 <p>A list of parts that match "{{ query }}"</p>
 
-<table>
+<table class="partTable">
   <tr>
     <th>Number</th>
     <th>Name</th>
@@ -25,13 +43,12 @@
   </tr>
   
 {% for part in parts %}
-  <tr>
+  <tr class="row">
     <td>{{ part.number }}</td>
 	<td>{{ part.name }}</td>
 	<td>{{ part.itemtype }}</td>
 	<td>{{ part.quantity }}</td>
 	<td>{{ part.price }}</td>	
-    <a href="/parts/{{ part.number }}" class="tr-link"></a>
   </tr>
 {% endfor %}
 </table>
@@ -39,4 +56,10 @@
 {% endblock %}
 
 {% block script %}
+rows = document.getElementsByClassName("row");
+for (let i=0; i<rows.length; i++){
+  rows[i].addEventListener("click", function(){
+  window.location = '/parts/' + rows[i].getElementsByTagName('td')[0].innerHTML;
+  });
+}
 {% endblock %}
