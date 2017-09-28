@@ -34,10 +34,10 @@
     <td>{{ part.number }}</td>
 	<td>{{ part.name }}</td>
 	<td>{{ part.itemtype }}</td>
-	<td>{{ part.quantity }}</td>
-	<td>{{ part.price }}</td>	
-	<td><a href="/{{ part.number }}/edit">&#9986;</a></td>
-	<td><a href="/{{ part.number }}/remove">&#10006;</a></td>
+	<td>{{ part.price }}</td>
+	<td>{{ part.quantity }}</td>	
+	<td><a href="/parts/{{ part.number }}/edit">&#9986;</a></td>
+	<td><a href="/parts/{{ part.number }}/remove">&#10006;</a></td>
   </tr>
 {% endfor %}
 

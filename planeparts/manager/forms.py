@@ -5,4 +5,4 @@ class PartTypeForm(forms.ModelForm):
 
     class Meta:
         model = PartType
-        fields = ('number', 'name', 'description', 'price', 'condition', 'quantity')
+        fields = ('number', 'name', 'itemtype', 'description', 'price', 'condition', 'quantity')
