@@ -2,30 +2,101 @@
 
 {% block head %}
 
-  <style>  
+  <style> 
+    body { background-color: black; }
+	
+    #myFormyThing {
+	  background: #7bc8ff; /* For browsers that do not support gradients */    
+      background: -webkit-linear-gradient(left top, #081659, #7bc8ff); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(bottom right, #081659, #7bc8ff); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(bottom right, #081659, #7bc8ff); /* For Firefox 3.6 to 15 */
+	  background: linear-gradient(to bottom right, #081659, #7bc8ff);
+	  
+	  height: 50vh;
+	  padding-top: 70px;
+	}
+    #partInput {
+	  border: none;
+	  font-size: 23px;
+	  padding: 5px 15px;
+	}
+	#partInput:focus {
+	  border: 1px solid black;
+	  outline: none;
+	}
+	#LeGoButton {
+	  height: 38px;
+	  position: relative;
+	  top: -4px;
+	}
+    #donthavename {
+	  /*border: 4px solid black;*/
+	  margin-bottome: 20px;
+	  overflow: hidden;
+	}
+	.mid-font {
+      font-size: 23px;
+    }
+    #info {
+	  background-color: black;
+	  color: white;
+	  float: left;
+	  padding: 10px;
+	  width: 40%;
+	}
+	#info2 {
+	  background-color: white;
+	  color: black;
+	  float: left;
+	  line-height: 35px;
+	  padding: 10px;
+	  width: 100%;
+    }	  
+	#parts-demo {
+	  float: left;
+	  width: calc(60% - 20px);
+	}
   </style>
 {% endblock %}
 
 {% block body %}
-	<p>CFS Aero is an EASA145 MRO who repair and overhaul modern piston and turbine engines.
-When the company was founded over 25 years ago its focus was on Classic Engines which it
-now no longer supports. Accordingly, the company has a large number of parts within its
-stores which it is selling off to private collectors and commercial operators.</p>
-
-  <form action="{% url 'search' %}" method="get" accept-charset="utf-8">
-    <p>Search:</p>
-    <input size="35" name="part" placeholder="Part number" type="text">
-    <button class="emailbutton" type="submit">Go</button>
-	<p>Enter the aircraft number you would like to locate or a relevent keyword in its description</p>
+  <form id="myFormyThing" action="{% url 'search' %}" method="get" accept-charset="utf-8">
+ 	<p class="mid-font" style="color: white;">Enter the part number you would like to locate or a relevent keyword in its description</p>
+	<div style="">
+      <input size="35" id="partInput" name="part" placeholder="Search" type="text"><!--
+      --><button id="LeGoButton" type="submit">Go</button>
+	</div>
   </form>
   
+  <!--<div id="donthavename">
+    <div id="info">
+     <h3>WHO ARE WE?</h3>
+     <p>CFS Aero is an EASA145 MRO who repair and overhaul modern piston and turbine engines.<br><br>
+     When the company was founded over 25 years ago its focus was on Classic Engines which it
+     now no longer supports.<br><br> Accordingly, the company has a large number of parts within its
+     stores which it is selling off to private collectors and commercial operators.</p>
+	</div>
+
+  <div id="parts-demo">
+  <h3>SOME SAMPLE PARTS</h3>
   {% for part in parts %}
-    <h3>{{ part.number }}-{{ part.name }}</h3>
-	<p>{{ part.price }}</p>
+    <p>{{ part.number }}-{{ part.name }}<p>
+	<p>{{ part.itemtype }}</p>
+	<p>&#163;{{ part.price }}</p>
   {% empty %}
     <p>We don't have anything in stock at the moment :(</p>
   {% endfor %}
-  
+  </div>
+  </div>-->
+ <div id="donthavename">
+    <div id="info2">
+      <h3>WHO ARE WE?</h3>
+      <p class="mid-font">CFS Aero is an EASA145 MRO who repair and overhaul modern piston and turbine engines.<br>
+      When the company was founded over 25 years ago its focus was on Classic Engines which it
+      now no longer supports.<br> Accordingly, the company has a large number of parts within its
+      stores which it is selling off to private collectors and commercial operators.</p>
+    </div> 
+  </div>
 {% endblock %}
 
 {% block script %}

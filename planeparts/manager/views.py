@@ -27,7 +27,7 @@ def home(request): #Gets list of all posts for homepage
 #Have fun debugging :)
 #Eh I'll add some comments to help
 def search_parts(request):
-    Search = request.GET.get('part')
+    Search = request.GET.get('part').lower()
     if not Search:
         return render(request, 'manager/error.html', {'msg': "Please enter a query"})
 
@@ -42,10 +42,10 @@ def search_parts(request):
     split = Search.split()
 
     find_my_results = [
-        lambda x: Search in [x.itemtype, x.name],
-        lambda x: Search in x.name + x.description,
-        lambda x: all(word in x.name + x.description + x.itemtype + x.condition for word in split),
-        lambda x: any(word in x.name + x.description + x.itemtype + x.condition for word in split),
+        lambda x: Search in [x.itemtype.lower(), x.name.lower()],
+        lambda x: Search in (x.name + x.description).lower(),
+        lambda x: all(word.lower() in x.name + x.description + x.itemtype + x.condition for word in split),
+        lambda x: any(word.lower() in x.name + x.description + x.itemtype + x.condition for word in split),
     ]
 
     for func in find_my_results:

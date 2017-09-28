@@ -6,20 +6,28 @@
   {% block head %}
   {% endblock %}
   <style>
+    *::selection {
+	  background-color: #ffd149;
+	  color: white;
+	}
     body {
-      font-family: Verdana, Geneva, sans-serif !important;
+      font-family: Circular,sans-serif;// Verdana, Geneva, sans-serif !important;
       margin: 0px;
+	}
+	p {
+	  font-size: 16px;
 	}
 	#navbar {
 	  position: fixed;
 	  top: 0px;	 
 	  width: 100%;
-	  
-	  background: black; /* For browsers that do not support gradients */
-      background: -webkit-linear-gradient(#010101, #000002); /* For Safari 5.1 to 6.0 */
-      background: -o-linear-gradient(#010101, #000002); /* For Opera 11.1 to 12.0 */
-      background: -moz-linear-gradient(#010101, #000002); /* For Firefox 3.6 to 15 */
-      background: linear-gradient(#010101, #000002); /* Standard syntax */
+	  z-index: 100;
+	 
+	  background: black; /* For browsers that do not support gradients 
+      background: -webkit-linear-gradient(#010101, #000002);
+      background: -o-linear-gradient(#010101, #000002);
+      background: -moz-linear-gradient(#010101, #000002);
+      background: linear-gradient(#282828, #000030);*/
 	}
 	#navbar img {
 	  float: left;
@@ -31,14 +39,14 @@
 	  padding: 20px 0px;
 	  text-align: center;
 	  text-decoration: none;
-	  transition: 1s;
+	  transition: 0.5s;
 	  width: calc(14% - 7px);
 	}
 	#navbar .selected {
-	  color: #4ec6d3;
+	  color: #7bc8ff;
 	}
 	#searchform {
-	  background-color: #4ec6d3;
+	  background-color: #7bc8ff;
 	  border-radius: 10px;
 	  display: none;
 	  padding: 5px;
@@ -55,13 +63,13 @@
 	  position: absolute;
 	  pointer-events: none;
 	  border-color: rgba(0, 0, 0, 0);
-	  border-bottom-color: #4ec6d3;
+	  border-bottom-color: #7bc8ff;
 	  border-width: 10px;
 	  margin-right: 0px;
 	  right: 0px;
     }
 	#navbar .navlink:hover {
-	  text-decoration: underline;
+      color: #aaaaaa;
 	}
 	
 	.partTable {
@@ -84,7 +92,7 @@
       background-color: #eaeaea;
     }
     .row:hover {
-      background-color: #4ec6d3 !important;
+      background-color: #7bc8ff !important;
 	  border: none;
     }
     .partTable td{
@@ -94,48 +102,46 @@
       position: absolute;
 	  width: 100%;
     }
-
-    .partTable tr:nth-of-type(even) {
-      background-color: #eaeaea;
-    }
-    .row:hover {
-      background-color: #4ec6d3 !important;
-	  border: none;
-    }
-    .partTable td{
-      padding: 5px 10px;
-    }
-    .tr-link {
-      position: absolute;
-	  width: 100%;
-    }
-
 	.contentcontainer {
-	  margin: 100px 0px 0px 0px;
+	  margin: 60px 0px 0px 0px;
 	  text-align: center;
 	}
+	#footNotes {
+	  background-color: black;
+	  color: white;
+	  padding-top: 20px;
+    }
+	.footlink {
+	  color: white;
+	  margin-left: 5px;
+	  text-decoration: none;
+	}
+    .footlink:hover {
+	  text-decoration: underline;
+	}
+
   </style>
 </head>
 
 <body>
   <nav id="navbar">
-    <a href="http://cfsaero.com"><img src="https://goo.gl/cCG1b7" alt="Logo"></img></a>
+    <a href="http://cfsaero.com"><img src="https://image.ibb.co/mzxs4Q/image.png" alt="Logo"></img></a>
     <a class="navlink{% if request.path == '/' %} selected{% endif %}" href="/">Home</a>
-	<a class="navlink" href="/search/?search=magneto">Magnetos</a>
-	<a class="navlink" href="/search/?search=gypsy">Gypsy</a>
-	<a class="navlink" href="/search/?search=pratt">Pratt &amp; Whitney</a>
+	<a class="navlink{% if request.GET.part == 'magneto' %} selected{% endif %}" href="/search/?part=magneto">Magnetos</a>
+	<a class="navlink{% if request.GET.part == 'gypsy' %} selected{% endif %}" href="/search/?part=gypsy">Gypsy</a>
+	<a class="navlink{% if request.GET.part == 'pratt' %} selected{% endif %}" href="/search/?part=pratt">Pratt &amp; Whitney</a>
     {% if user.is_authenticated %}
-	  <a class="navlink" href="/new">Add</a>
+	  <a class="navlink{% if request.path == '/admin/' %} selected{% endif %}" href="/admin">Admin</a>
       <a class="navlink" href="/logout">Logout</a>
 	{% else %}
-	  <a class="navlink" href="/login">Log in</a>
+	  <a class="navlink{% if request.path == '/login/' %} selected{% endif %}" href="/login">Log in</a>
       <a class="navlink" href="">Contact us</a>	    
     {% endif %}
 	<div id="searchything">
       <a id="nav-search" class="navlink{% if request.path|slice:"0:7" == "/search" %} selected{% endif %}">Search</a>
       <form id="searchform" action="{% url 'search' %}" method="get" accept-charset="utf-8">
 	    <span class="arrow"></span>
-	    <input name="search" type="text" placeholder="Search">
+	    <input name="part" type="text" placeholder="Search">
 	    <button class="searchbutton" type="submit">Go</button>
 	  </form>
 	</div>
@@ -144,14 +150,26 @@
   <div class="contentcontainer">
     {% block body %}
     {% endblock %}
+	
+	<div id="footNotes">
+	  <a class="footlink" href="/">Home</a>
+	  <a class="footlink" href="/search/?part=magneto">Magnetos</a>
+	  <a class="footlink" href="/search/?part=gypsy">Gypsy</a>
+	  <a class="footlink" href="/search/?part=pratt">Pratt &amp; Whitney</a>
+      {% if user.is_authenticated %}
+	    <a class="footlink" href="/admin">Admin</a>
+        <a class="footlink" href="/logout">Logout</a>
+	  {% else %}
+	    <a class="footlink" href="/login">Log in</a>
+      {% endif %}
+	  <a class="footlink" href="">Contact us</a>
+
+	  <p>If you would like to purchase a part or if you have any questions on its condition
+      please do not hesitate to call Mark Bird on 02476 305 873 or email us at admin@cfsaero.com </p> 
+    </div>
   </div>
   
-  <p>If you would like to purchase a part or if you have any questions on its condition
-  please do not hesitate to call Mark Bird on 02476 305 873 or email us at admin@cfsaero.com </p>  
   <script>  
-  //tagtipleft = width / 100 * 92.25 - 40 + "px";
-  //alert(tagtipleft)
-
   document.getElementById("searchything").addEventListener("mouseover", function(){
     var a = document.getElementById("nav-search")
 	var right = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 60) / 14 - 10;
