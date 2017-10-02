@@ -20,8 +20,7 @@ def filter_match(request, function, search_):
         return "no match" 
    
 def home(request): #Gets list of all posts for homepage
-    parts = find(number=2)
-    return render(request, 'manager/home.html',{'parts': parts})
+    return render(request, 'manager/home.html',{'msg': 'dw'})
 
 #This function is hideous
 #Have fun debugging :)
@@ -29,7 +28,7 @@ def home(request): #Gets list of all posts for homepage
 def search_parts(request):
     Search = request.GET.get('part').lower()
     if not Search:
-        return render(request, 'manager/error.html', {'msg': "Please enter a query"})
+        return render(request, 'manager/home.html', {'msg': "Please enter a query"})
 
     if PartType.objects.filter(number=Search): #if matches number
         return redirect('/parts/' + Search)
@@ -44,8 +43,8 @@ def search_parts(request):
     find_my_results = [
         lambda x: Search in [x.itemtype.lower(), x.name.lower()],
         lambda x: Search in (x.name + x.description).lower(),
-        lambda x: all(word.lower() in x.name + x.description + x.itemtype + x.condition for word in split),
-        lambda x: any(word.lower() in x.name + x.description + x.itemtype + x.condition for word in split),
+        lambda x: all(word in (x.name + x.description + x.itemtype + x.condition).lower() for word in split),
+        lambda x: any(word in (x.name + x.description + x.itemtype + x.condition).lower() for word in split),
     ]
 
     for func in find_my_results:
@@ -53,7 +52,7 @@ def search_parts(request):
         if matches != "no match":
             return matches        
 
-    return render(request, 'manager/error.html', {'msg': "We don't have that part in stock, please check back soon :)"})
+    return render(request, 'manager/home.html', {'msg': "We don't have any parts that match '" + Search + "' in stock, please check back soon or try something else"})
 
 def admin(request):
     if request.user.is_authenticated():
@@ -64,10 +63,13 @@ def admin(request):
         return render(request, 'registration/login.html')
     
 def part_detail(request, part_num):
-    part = PartType.objects.filter(number=part_num)[0]
-    if part:
+    try:
+        part = PartType.objects.filter(number=part_num)[0]
         return render(request, 'manager/part.html', {'type': part})
 
+    except IndexError:
+        no_match(request)
+        
 @login_required
 def new_type(request):
     if request.method == "POST":
@@ -101,21 +103,10 @@ def edit_type(request, part_num):
 def delete_type(request, part_num):
     part = get_object_or_404(PartType, number=part_num)
     part.delete()
-    return redirect('home')
+    return redirect('admin')
 
-"""
-@login_required
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = PostForm(instance=post)
-    return render(request, 'blog/post_edit.html', {'form': form})
-"""
+
+def no_match(request):
+    return render(request, 'manager/error.html', {'msg': "The page you're looking for doesn't exist"})
+   
+    

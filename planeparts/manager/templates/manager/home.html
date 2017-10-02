@@ -37,14 +37,7 @@
 	.mid-font {
       font-size: 23px;
     }
-    #info {
-	  background-color: black;
-	  color: white;
-	  float: left;
-	  padding: 10px;
-	  width: 40%;
-	}
-	#info2 {
+	#info {
 	  background-color: white;
 	  color: black;
 	  float: left;
@@ -56,40 +49,35 @@
 	  float: left;
 	  width: calc(60% - 20px);
 	}
+	@media screen and (max-width: 550px){
+	  #partInput {
+	    font-size: 18px;
+		width: calc(100% - 120px);
+	  }
+	  #LeGoButton {
+	    height: 33px;
+	    top: -2px;
+	  }
+	  .mid-font {
+	    font-size: 18px;
+	  }
+	}
   </style>
 {% endblock %}
 
 {% block body %}
   <form id="myFormyThing" action="{% url 'search' %}" method="get" accept-charset="utf-8">
- 	<p class="mid-font" style="color: white;">Enter the part number you would like to locate or a relevent keyword in its description</p>
+ 	<p class="mid-font" style="color: white;">
+	  {% if msg != "dw" %}{{ msg }}<br>{% else %}Enter the part number you would like to locate or a relevent keyword in its description{% endif %}
+	</p>
 	<div style="">
       <input size="35" id="partInput" name="part" placeholder="Search" type="text"><!--
       --><button id="LeGoButton" type="submit">Go</button>
 	</div>
   </form>
   
-  <!--<div id="donthavename">
-    <div id="info">
-     <h3>WHO ARE WE?</h3>
-     <p>CFS Aero is an EASA145 MRO who repair and overhaul modern piston and turbine engines.<br><br>
-     When the company was founded over 25 years ago its focus was on Classic Engines which it
-     now no longer supports.<br><br> Accordingly, the company has a large number of parts within its
-     stores which it is selling off to private collectors and commercial operators.</p>
-	</div>
-
-  <div id="parts-demo">
-  <h3>SOME SAMPLE PARTS</h3>
-  {% for part in parts %}
-    <p>{{ part.number }}-{{ part.name }}<p>
-	<p>{{ part.itemtype }}</p>
-	<p>&#163;{{ part.price }}</p>
-  {% empty %}
-    <p>We don't have anything in stock at the moment :(</p>
-  {% endfor %}
-  </div>
-  </div>-->
  <div id="donthavename">
-    <div id="info2">
+    <div id="info">
       <h3>WHO ARE WE?</h3>
       <p class="mid-font">CFS Aero is an EASA145 MRO who repair and overhaul modern piston and turbine engines.<br>
       When the company was founded over 25 years ago its focus was on Classic Engines which it

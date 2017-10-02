@@ -2,12 +2,19 @@
 
 {% block head %}
   <title>Something went wrong</title>
+  
+  <style>
+    .linkhome {
+	  color: #7bc8ff;
+	}
+  </style>
 {% endblock %}
 
 {% block body %}
-  <div style="text-align: center;">
+<br>
+  <div>
     <p>{{ msg }}</p>
-    <a style="color: white;" href="/">Click here to return home</a>
+    <a class='linkhome' href="/">Click here to return home</a>
   </div>
 {% endblock %}
 
