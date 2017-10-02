@@ -4,8 +4,9 @@
     <title>Edit or Add</title>
     <meta name="description" content="Edit a part">
 {% endblock %}
+
 {% block body %}
-  <div style="position: absolute">
+  <div>
     <h1>New part</h1>
     <form method="POST" class="post-form">{% csrf_token %}
       {{ form.as_p }}

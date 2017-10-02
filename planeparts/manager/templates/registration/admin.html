@@ -16,8 +16,9 @@
 {% endblock %}
 
 {% block body %}
-<a href="/new">Add new part</a>
+<br>
 <h1>Welcome to the admin page, {{ user.name }}</h1>
+<a href="/new">Add new part</a>
 <p>All parts</p>
 
 <table class="partTable">
@@ -40,8 +41,15 @@
 	<td><a href="/parts/{{ part.number }}/remove">&#10006;</a></td>
   </tr>
 {% endfor %}
-
+</table>
+<br>
 {% endblock %}
 
 {% block script %}
+rows = document.getElementsByClassName("row");
+for (let i=0; i<rows.length; i++){
+  rows[i].addEventListener("click", function(){
+  window.location = '/parts/' + rows[i].getElementsByTagName('td')[0].innerHTML;
+  });
+}
 {% endblock %}

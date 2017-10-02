@@ -28,31 +28,30 @@
 {% endblock %}
 
 {% block body %}
-{% if user.is_authenticated %}
-  <a href="/new">Add new part</a>
-{% endif %}
-<p>A list of parts that match "{{ query }}"</p>
-
-<table class="partTable">
-  <tr>
-    <th>Number</th>
-    <th>Name</th>
-    <th>Item</th>
-	<th>Price</th>
-	<th>Qty</th>
-  </tr>
+<div style="overflow-x: auto">
+  <br>
+  <p>A list of parts that match "{{ query }}"</p>
+  <table class="partTable">
+    <tr>
+      <th>Number</th>
+      <th>Name</th>
+      <th>Item</th>
+	  <th>Price</th>
+	  <th>Qty</th>
+    </tr>
   
-{% for part in parts %}
-  <tr class="row">
-    <td>{{ part.number }}</td>
-	<td>{{ part.name }}</td>
-	<td>{{ part.itemtype }}</td>
-	<td>{{ part.price }}</td>
-	<td>{{ part.quantity }}</td>	
-  </tr>
-{% endfor %}
-</table>
-
+  {% for part in parts %}
+    <tr class="row">
+      <td>{{ part.number }}</td>
+	  <td>{{ part.name }}</td>
+   	  <td>{{ part.itemtype }}</td>
+	  <td>{{ part.price }}</td>
+	  <td>{{ part.quantity }}</td>	
+    </tr>
+  {% endfor %}
+  </table>
+  <br>
+</div>
 {% endblock %}
 
 {% block script %}

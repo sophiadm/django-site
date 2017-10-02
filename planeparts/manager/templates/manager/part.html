@@ -1,34 +1,56 @@
 ﻿{% extends 'manager/base.html' %}
 
 {% block head %}
+  <title>CFS Aero Parts-{{ part.name }}</title>
+  <meta name="description" content="We sell classic aeoplane parts" />
   <style>
   #leInfo {
-    min-height: 60vh;
+    align-items: center; /* Vertical center alignment */
+	
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+	justify-content: center;
+    min-height: 70vh;
+	padding: 0px 40px;
+	text-align: center;
   }
-  h1 {
+  #leInfo h1 {
     color: #7bc8ff;
+    font-size: 40px;
+  }
+  #leInfo p {
+    font-size: 25px;
   }
   </style>
 {% endblock %}
 
 {% block body %}
 {% if user.is_authenticated %}
+  <br>
   <a href="edit">Edit</a>
   <a href="remove">Delete</a>
 {% endif %}
 
 <div id="leInfo">
+  <div>
   <h1>#{{ type.number }} - {{ type.name }}</h1>
 <!--Price: <p>{{ type.price }}</p>
 Condition: <p>{{ type.condition }}</p>
 Quantity: <p>{{ type.quantity }}</p>
 Description: <p>{{ type.description|linebreaks }}</p>-->
-
   <p>
-    We are currently selling {{ type.quantity }} {{ type.condition }} {{ type.name }}{% if type.quantity != 1 %}s{% endif %} for &#163;{{ type.price }}. {{ type.description }}
+    We are currently selling {{ type.quantity }} {{ type.condition }} {{ type.name }}{% if type.quantity != 1 %}s{% endif %} for &#163;{{ type.price }}. 
+	<br>
+	{{ type.description }}
   </p>
-  <p>Contact bla bla</p>
+  </div>
 </div>
+<p>Contact bla bla</p>
+
 {% endblock %}
 
 {% block script %}
