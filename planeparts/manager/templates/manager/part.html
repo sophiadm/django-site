@@ -38,15 +38,11 @@
 <div id="leInfo">
   <div>
   <h1>#{{ type.number }} - {{ type.name }}</h1>
-<!--Price: <p>{{ type.price }}</p>
-Condition: <p>{{ type.condition }}</p>
-Quantity: <p>{{ type.quantity }}</p>
-Description: <p>{{ type.description|linebreaks }}</p>-->
-  <p>
-    We are currently selling {{ type.quantity }} {{ type.condition }} {{ type.name }}{% if type.quantity != 1 %}s{% endif %} for &#163;{{ type.price }}. 
-	<br>
-	{{ type.description }}
-  </p>
+<p>Number: {{ type.number}}</p>
+<p>Description: {{ type.description}}</p>
+<p>Price: &#163;{{ type.price }}</p>
+<p>Condition: {{ type.condition }}</p>
+<p>Quantity: {{ type.quantity }}</p>
   </div>
 </div>
 <p>Contact bla bla</p>

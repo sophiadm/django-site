@@ -23,19 +23,19 @@
 
 <table class="partTable">
   <tr>
-    <th>Number</th>
-    <th>Name</th>
-    <th>Item</th>
+    <th>Reference</th>
+    <th>Description</th>
 	<th>Price</th>
+	<th>Condition</th>
 	<th>Qty</th>
   </tr>
   
 {% for part in parts %}
   <tr class="row">
     <td>{{ part.number }}</td>
-	<td>{{ part.name }}</td>
-	<td>{{ part.itemtype }}</td>
+	<td>{{ part.description }}</td>
 	<td>{{ part.price }}</td>
+	<td>{{ part.condition }}</td>	
 	<td>{{ part.quantity }}</td>	
 	<td><a href="/parts/{{ part.number }}/edit">&#9986;</a></td>
 	<td><a href="/parts/{{ part.number }}/remove">&#10006;</a></td>

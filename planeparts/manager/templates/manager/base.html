@@ -169,9 +169,9 @@
     <a href="http://cfsaero.com"><img src="https://image.ibb.co/mzxs4Q/image.png" alt="Logo"></img></a>
     <a class="navlink{% if request.path == '/' %} selected{% endif %}" href="/">Home</a>
 	<div id="expendables">
-	  <a class="navlink{% if request.GET.part == 'magneto' %} selected{% endif %}" href="/search/?part=magneto">Magnetos</a>
+	  <a class="navlink{% if request.GET.part == 'magneto' %} selected{% endif %}" href="/search/?part=magneto">Accessories</a>
 	  <a class="navlink{% if request.GET.part == 'gypsy' %} selected{% endif %}" href="/search/?part=gypsy">Gypsy</a>
-	  <a class="navlink{% if request.GET.part == 'pratt' %} selected{% endif %}" href="/search/?part=pratt+whitney">Pratt &amp; Whitney</a>
+	  <a class="navlink{% if request.GET.part == 'pratt whitney' %} selected{% endif %}" href="/search/?part=pratt+whitney">Pratt &amp; Whitney</a>
 	</div>
     {% if user.is_authenticated %}
    	  <a class="navlink{% if request.path == '/admin/' %} selected{% endif %}" href="/admin">Admin</a>
@@ -199,7 +199,7 @@
     <p id="copyright">&#9400; CFS Aero </p>
 
 	<a class="footlink" href="/">Home</a>
-    <a class="footlink" href="/search/?part=magneto">Magnetos</a>
+    <a class="footlink" href="/search/?part=magneto">Accessories</a>
 	<a class="footlink" href="/search/?part=gypsy">Gypsy</a>
 	<a class="footlink" href="/search/?part=pratt whitney">Pratt &amp; Whitney</a>
     {% if user.is_authenticated %}
