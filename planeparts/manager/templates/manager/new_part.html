@@ -8,6 +8,7 @@
 {% block body %}
   <div>
     <h1>New part</h1>
+	<p>{{ msg|safe }}</p>
     <form method="POST" class="post-form">{% csrf_token %}
       {{ form.as_p }}
       <button type="submit">Save</button>

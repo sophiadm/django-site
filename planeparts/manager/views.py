@@ -20,7 +20,7 @@ def filter_match(request, function, search_):
         return "no match" 
    
 def home(request): #Gets list of all posts for homepage
-    return render(request, 'manager/home.html',{'msg': 'dw'})
+    return render(request, 'manager/home.html', {'msg': 'dw'})
 
 #This function is hideous
 #Have fun debugging :)
@@ -41,10 +41,10 @@ def search_parts(request):
     split = Search.split()
 
     find_my_results = [
-        lambda x: Search in [x.itemtype.lower(), x.name.lower()],
-        lambda x: Search in (x.name + x.description).lower(),
-        lambda x: all(word in (x.name + x.description + x.itemtype + x.condition).lower() for word in split),
-        lambda x: any(word in (x.name + x.description + x.itemtype + x.condition).lower() for word in split),
+        lambda x: Search == x.description.lower(),
+        lambda x: Search in x.description.lower(),
+        lambda x: all(word in (x.description + x.condition).lower() for word in split),
+        lambda x: any(word in (x.description +  x.condition).lower() for word in split),
     ]
 
     for func in find_my_results:
@@ -60,7 +60,7 @@ def admin(request):
         return render(request, 'registration/admin.html', {'parts':parts})
 
     else:
-        return render(request, 'registration/login.html')
+        return redirect('/login/')
     
 def part_detail(request, part_num):
     try:
@@ -76,8 +76,8 @@ def new_type(request):
         form = PartTypeForm(request.POST)
         if form.is_valid():
             part = form.save(commit=False)
-            if PartType.objects.filter(number = part.number):
-                return
+            if PartType.objects.filter(number=part.number):
+                return render(request, 'manager/new_part.html', {'form': form, 'msg':'A part with that number already exists <a href="/parts/'+part.number+'">here</a>'})
 
             part.save()
             return redirect('/parts/' + str(part.number))
@@ -91,7 +91,7 @@ def edit_type(request, part_num):
     part = get_object_or_404(PartType, number=part_num)
     if request.method == "POST":
         form = PartTypeForm(request.POST, instance=part)
-        if form.is_valid():
+        if form.is_valid() and not PartType.objects.filter(number=form.number):
             part = form.save()
             return redirect('/parts/' + str(part.number))
     else:
@@ -103,7 +103,7 @@ def edit_type(request, part_num):
 def delete_type(request, part_num):
     part = get_object_or_404(PartType, number=part_num)
     part.delete()
-    return redirect('admin')
+    return redirect('/admin/')
 
 
 def no_match(request):
