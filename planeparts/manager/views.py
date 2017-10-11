@@ -79,6 +79,7 @@ def new_type(request):
             if PartType.objects.filter(number=part.number):
                 return render(request, 'manager/new_part.html', {'form': form, 'msg':'A part with that number already exists <a href="/parts/'+part.number+'">here</a>'})
 
+            part.price = price.price.replace("£", "")
             part.save()
             return redirect('/parts/' + str(part.number))
     else:
@@ -91,8 +92,14 @@ def edit_type(request, part_num):
     part = get_object_or_404(PartType, number=part_num)
     if request.method == "POST":
         form = PartTypeForm(request.POST, instance=part)
-        if form.is_valid() and not PartType.objects.filter(number=form.number):
-            part = form.save()
+        if form.is_valid():
+            part = form.save(commit=False)
+            
+            if PartType.objects.filter(number=part.number):
+                return render(request, 'manager/new_part.html', {'form': form, 'msg':'A part with that number already exists <a href="/parts/'+part.number+'">here</a>'})
+            
+            part.price = part.price.replace("£", "")
+            part.save()
             return redirect('/parts/' + str(part.number))
     else:
         form = PartTypeForm(instance=part)
