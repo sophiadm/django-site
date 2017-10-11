@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
-<head>
   <!--Welcome to the CFS Aero parts website.
   I think it's pretty awesome, but I might be biased, having designed it
   I used python and django for the backend, in case you're wondering
   My media queries are kind of a mess, but they get the job done :)-->
+<head>  
+  <link rel="icon" href="http://www.cfsaero.com/favicon.ico">  
+  <meta charset="UTF-8">
   
-  <title>CFS Aero Parts</title>
-  <link rel="icon" href="http://www.cfsaero.com/favicon.ico">
   {% block head %}
   {% endblock %}
   <style>
@@ -109,7 +109,7 @@
     }
 	.contentcontainer {
 	  margin: 60px 0px 0px 0px;
-	  min-height: calc(100vh - 201px);
+	  min-height: calc(100vh - 202px);
 	  text-align: center;
 	}
 	#footNotes {
@@ -169,7 +169,7 @@
     <a href="http://cfsaero.com"><img src="https://image.ibb.co/mzxs4Q/image.png" alt="Logo"></img></a>
     <a class="navlink{% if request.path == '/' %} selected{% endif %}" href="/">Home</a>
 	<div id="expendables">
-	  <a class="navlink{% if request.GET.part == 'magneto' %} selected{% endif %}" href="/search/?part=magneto">Accessories</a>
+	  <a class="navlink{% if request.GET.part == 'magneto accessory' %} selected{% endif %}" href="/search/?part=magneto+accessory">Accessories</a>
 	  <a class="navlink{% if request.GET.part == 'gypsy' %} selected{% endif %}" href="/search/?part=gypsy">Gypsy</a>
 	  <a class="navlink{% if request.GET.part == 'pratt whitney' %} selected{% endif %}" href="/search/?part=pratt+whitney">Pratt &amp; Whitney</a>
 	</div>
@@ -199,9 +199,9 @@
     <p id="copyright">&#9400; CFS Aero </p>
 
 	<a class="footlink" href="/">Home</a>
-    <a class="footlink" href="/search/?part=magneto">Accessories</a>
+    <a class="footlink" href="/search/?part=magneto+accessory">Accessories</a>
 	<a class="footlink" href="/search/?part=gypsy">Gypsy</a>
-	<a class="footlink" href="/search/?part=pratt whitney">Pratt &amp; Whitney</a>
+	<a class="footlink" href="/search/?part=pratt+whitney">Pratt &amp; Whitney</a>
     {% if user.is_authenticated %}
 	  <a class="footlink" href="/admin">Admin</a>
       <a class="footlink" href="/logout">Logout</a>

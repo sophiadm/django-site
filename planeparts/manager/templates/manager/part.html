@@ -1,8 +1,8 @@
 ﻿{% extends 'manager/base.html' %}
 
 {% block head %}
-  <title>CFS Aero Parts-{{ part.name }}</title>
-  <meta name="description" content="We sell classic aeoplane parts" />
+  <title>{{ type.number }} - {{ type.description }} | CFS Aero Parts</title>
+  <meta name="description" content="CFS Aero is currently selling {{ type.quantity }} {{ type.description }} for £{{ type.price }}" />
   <style>
   #leInfo {
     align-items: center; /* Vertical center alignment */
@@ -14,7 +14,6 @@
     display: flex;
 
 	justify-content: center;
-    min-height: 70vh;
 	padding: 0px 40px;
 	text-align: center;
   }
@@ -22,9 +21,18 @@
     color: #7bc8ff;
     font-size: 40px;
   }
-  #leInfo p {
-    font-size: 25px;
+  #leInfo table {
+    border-collapse: collapse;
+    margin: 0px auto;
   }
+  #leInfo table, #leInfo td {
+	padding: 8px 20px;
+  }
+  #leInfo tr:nth-of-type(odd) {
+    background-color: #eaeaea;
+  }
+}
+
   </style>
 {% endblock %}
 
@@ -36,13 +44,34 @@
 {% endif %}
 
 <div id="leInfo">
-  <div>
-  <h1>#{{ type.number }} - {{ type.name }}</h1>
-<p>Number: {{ type.number}}</p>
-<p>Description: {{ type.description}}</p>
-<p>Price: &#163;{{ type.price }}</p>
-<p>Condition: {{ type.condition }}</p>
-<p>Quantity: {{ type.quantity }}</p>
+  <div id="container">
+    <h1>#{{ type.number }} - {{ type.description }}</h1>
+    <br>
+    <table>
+      <tr>
+    	<td>Number</td>
+	    <td>{{ type.number}}</td>
+	  </tr>
+      <tr>
+        <td>Description</td>
+    	<td>{{ type.description}}</td>
+      <tr>
+	    <td>Price</td>
+	    <td>&#163;{{ type.price }}</td>
+	  <tr>
+        <td>Condition</td>
+        <td>{{ type.condition }}</td>
+	  <tr>
+        <td>Quantity</td>
+        <td>{{ type.quantity }}</td>
+	  </tr>
+	{% if user.is_authenticated %}
+	  <tr>
+	    <td>Location</td>
+		<td>{{ type.location }}</td>
+	  </tr>
+	{% endif %}
+    </table>
   </div>
 </div>
 <p>Contact bla bla</p>

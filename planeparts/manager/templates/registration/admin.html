@@ -1,6 +1,9 @@
 {% extends 'manager/base.html' %}
 
 {% block head %}
+  <title>Admin | CFS Aero</title>
+  <meta name="description" content="This page allows admin users to add, ddelete and edit parts"/>
+  <meta name="robots" content="noindex,follow"/>
   <style>
   .row td a {
     color: black;
@@ -27,16 +30,18 @@
     <th>Description</th>
 	<th>Price</th>
 	<th>Condition</th>
-	<th>Qty</th>
+	<th>Quantity</th>
+	<th>Location</th>
   </tr>
   
 {% for part in parts %}
   <tr class="row">
     <td>{{ part.number }}</td>
 	<td>{{ part.description }}</td>
-	<td>{{ part.price }}</td>
+	<td>£{{ part.price }}</td>
 	<td>{{ part.condition }}</td>	
-	<td>{{ part.quantity }}</td>	
+	<td>{{ part.quantity }}</td>
+    <td>{{ part.location }}</td>	
 	<td><a href="/parts/{{ part.number }}/edit">&#9986;</a></td>
 	<td><a href="/parts/{{ part.number }}/remove">&#10006;</a></td>
   </tr>

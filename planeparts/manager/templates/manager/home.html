@@ -1,6 +1,11 @@
 ﻿{% extends 'manager/base.html' %}
 
 {% block head %}
+  <title>Inventory of Aviation Parts | CFS Aero</title>
+  <meta name="description" content="CFS Aero is an EASA145 MRO who repair and overhaul modern piston and turbine engines.
+      When the company was founded over 25 years ago its focus was on Classic Engines which it
+      now no longer supports. Accordingly, the company has a large number of parts within its
+      stores which it is selling off to private collectors and commercial operators.">
 
   <style> 
     body { background-color: black; }
@@ -91,9 +96,11 @@
       <p class="mid-font">All parts are sold as removed and most are in good condition (some are brand new and in their original packaging).<br>
 	  We will gladly advise you of the visual condition of any part you are interested in.</br>
 	  Most parts can also be overhauled and supplied with a Certificate of Conformity at an additional cost.</p>
-	  <img class='btmimg' alt="Picture of a plane" src="https://mail.google.com/mail/u/0/?ui=2&ik=5599701345&view=fimg&th=15edda1707a02c67&attid=0.4&disp=emb&attbid=ANGjdJ9HI991zx8l5qRG4xwVddlj91ZQsNDZSpBxV3gN6BkTipjsTpgpiPRXzi-hWsFBo02G2LUvjLUQJHynBnP2GwlEZpwAa3hOGo58kUaJ0xYwUtbvF6pOLGSJh2Y&sz=w400-h266&ats=1507142928928&rm=15edda1707a02c67&zw&atsh=1"></img>
-	  <img class='btmimg' alt="Picture of a plane" src="https://mail.google.com/mail/u/0/?ui=2&ik=5599701345&view=fimg&th=15edd9f809c46206&attid=0.7&disp=emb&attbid=ANGjdJ-_nJg-O6P3Ar_uunn4fl1si8JSw9SKth2bz1yvcw4tvspYDIkhH6j3PmP04T3wzXALMeSINaOE3PSdXneHg9g9zF9rt3vSbkAQZEFue48swpSUcj7rq4HOKNU&sz=w534-h400&ats=1506969712332&rm=15edd9f809c46206&zw&atsh=1"></img>
-	  <img class='btmimg' alt="Picture of a plane" src="https://mail.google.com/mail/u/0/?ui=2&ik=5599701345&view=fimg&th=15edd9f809c46206&attid=0.9&disp=emb&attbid=ANGjdJ9_NaEJZMHlysgtcYzUn10KV09Uql5PmW5FcMYKgQ07kwprO-LDXsMV9x4POUJXCbIDS1AlLeVu2UVRPcc8SOHx5k2QaFEVwGtsoBxG9IY7mMekeSQp9Vkdrng&sz=w600-h400&ats=1506969712332&rm=15edd9f809c46206&zw&atsh=1"></img>
+	  {% load static %}
+
+      <img class='btmimg' alt="Picture of a plane" src="{% static "images/plane1.jpg" %}"/>
+	  <img class='btmimg' alt="Picture of a plane" src="{% static "images/plane2.jpg" %}"/>
+	  <img class='btmimg' alt="Picture of a plane" src="{% static "images/engine.jpg" %}"/>
 	  </div> 
   </div>
 {% endblock %}
