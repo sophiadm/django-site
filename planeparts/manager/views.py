@@ -12,14 +12,6 @@ def find(number=1, **conditions):
     except IndexError:
         return PartType.objects.filter(**conditions).exclude(quantity=0)
 
-def filter_match(request, function, search_):
-    matchparts = list(filter(function, PartType.objects.all()))
-    if matchparts: #if matches name or type
-        return render(request, 'manager/part_list.html', {'parts':matchparts, 'query':search_})
-
-    else:
-        return "no match" 
-   
 def home(request): #Gets list of all posts for homepage
     return render(request, 'manager/home.html', {'msg': 'dw'})
 
@@ -46,14 +38,22 @@ def contact(request):
 
     return render(request, 'manager/contact.html', {'form': form, 'part':part})    
 
+def filter_match(request, function, search_): #used in search function to check if any parts match condition
+    matchparts = list(filter(function, PartType.objects.all()))
+    if matchparts: #if matches name or type
+        return render(request, 'manager/part_list.html', {'parts':matchparts, 'query':search_})
+
+    else:
+        return "no match" 
+   
 #This function is hideous
 #Have fun debugging :)
-#Eh I'll add some comments to help
 def search_parts(request):
-    Search = request.GET.get('part').lower()
+    Search = request.GET.get('part')
     if not Search:
         return render(request, 'manager/home.html', {'msg': "Please enter a query"})
-
+    Search = Search.lower()
+    
     if PartType.objects.filter(number=Search): #if matches number
         return redirect('/parts/' + Search)
 
@@ -92,7 +92,7 @@ def part_detail(request, part_num):
         return render(request, 'manager/part.html', {'type': part})
 
     except IndexError:
-        no_match(request)
+        return no_match(request)
         
 @login_required
 def new_type(request):
@@ -103,7 +103,7 @@ def new_type(request):
             if PartType.objects.filter(number=part.number):
                 return render(request, 'manager/new_part.html', {'form': form, 'msg':'A part with that number already exists <a href="/parts/'+part.number+'">here</a>'})
 
-            part.price = price.price.replace("£", "")
+            part.price = part.price.replace("£", "")
             part.save()
             return redirect('/parts/' + str(part.number))
     else:
@@ -118,9 +118,6 @@ def edit_type(request, part_num):
         form = PartTypeForm(request.POST, instance=part)
         if form.is_valid():
             part = form.save(commit=False)
-            
-            if PartType.objects.filter(number=part.number):
-                return render(request, 'manager/new_part.html', {'form': form, 'msg':'A part with that number already exists <a href="/parts/'+part.number+'">here</a>'})
             
             part.price = part.price.replace(u'\u00a3', "")
             part.save()

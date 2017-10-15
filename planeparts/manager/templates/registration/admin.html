@@ -20,10 +20,10 @@
 
 {% block body %}
 <br>
-<h1>Welcome to the admin page, {{ user.name }}</h1>
+<h1>Welcome to the admin page, {{ user.get_username }}</h1>
 <a href="/new" class="mybut" >Add new part</a>
+<br><br>
 <p>All parts</p>
-
 <table class="partTable">
   <tr>
     <th>Reference</th>
@@ -38,7 +38,7 @@
   <tr class="row">
     <td>{{ part.number }}</td>
 	<td>{{ part.description }}</td>
-	<td>£{{ part.price }}</td>
+	<td>&#163;{{ part.price }}</td>
 	<td>{{ part.condition }}</td>	
 	<td>{{ part.quantity }}</td>
     <td>{{ part.location }}</td>	

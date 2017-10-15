@@ -1,16 +1,28 @@
 ﻿{% extends 'manager/base.html' %}
 
-{% block info %}  
+{% block head %}  
   <title>Edit or add a new part</title>
   <meta name="description" content="Edit a part">
   <meta name="robots" content="noindex,follow"/>
+  <style>
+    #post-form {
+	  margin: 0px auto;
+	  text-align: right;
+	  width: 310px;
+	}
+    #post-form input{
+	  font-size: 16px;
+	  padding: 5px 10px;
+	}
+  </style>
 {% endblock %}
 
 {% block body %}
   <div>
+    <br>
     <h1>New part</h1>
 	<p>{{ msg|safe }}</p>
-    <form method="POST" class="post-form">{% csrf_token %}
+    <form method="POST" id="post-form">{% csrf_token %}
       {{ form.as_p }}
       <button type="submit" class="mybut" >Save</button>
     </form>
