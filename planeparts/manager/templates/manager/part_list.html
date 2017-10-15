@@ -41,15 +41,17 @@
 	  <th>Price</th>
 	  <th>Condition</th>
 	  <th>Qty</th>
+	  {% if user.is_authenticated %}<th>Location</th>{% endif %}
     </tr>
   
   {% for part in parts %}
     <tr class="row">
       <td>{{ part.number }}</td>
 	  <td>{{ part.description }}</td>
-	  <td>£{{ part.price }}</td>
+	  <td>&#163;{{ part.price }}</td>
 	  <td>{{ part.condition }}</td>	
 	  <td>{{ part.quantity }}</td>	
+	  {% if user.is_authenticated %}<td>part.location</td>{% endif %}
     </tr>
   {% endfor %}
   </table>

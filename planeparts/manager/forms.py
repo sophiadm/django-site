@@ -5,7 +5,7 @@ class PartTypeForm(forms.ModelForm):
 
     class Meta:
         model = PartType
-        fields = ('number', 'description', 'price', 'condition', 'quantity')
+        fields = ('number', 'description', 'price', 'condition', 'quantity', 'location')
 
 class EmailForm(forms.Form):
     part = forms.CharField(label='Part Number', max_length=50)

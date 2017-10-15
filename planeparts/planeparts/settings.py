@@ -117,15 +117,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-LOGIN_REDIRECT_URL = "/admin"
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = "/admin/"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'sophiadm'
-EMAIL_HOST_PASSWORD = 'Hahah nice try motherfudgers'
+EMAIL_HOST_PASSWORD = 'haha nice try motherfudgers'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
