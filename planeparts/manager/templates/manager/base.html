@@ -16,12 +16,25 @@
 	  color: white;
 	}
     body {
-      font-family: Circular,sans-serif;// Verdana, Geneva, sans-serif !important;
+      font-family: sans-serif;
       margin: 0px;
 	}
 	p {
 	  font-size: 16px;
 	}
+	.mybut {
+	  background-color: #7bc8ff;
+	  border: 0px;
+	  color: black;
+	  cursor: pointer;
+	  font-size: 20px;
+	  padding: 5px 10px;
+	  text-decoration: none;
+	  transition: color 0.5s;
+    }
+	.mybut:hover {
+	  color: white;
+    }
 	#navbar {
 	  position: fixed;
 	  top: 0px;	 
@@ -37,10 +50,11 @@
 	#navbar img {
 	  float: left;
 	  height: 60px;
-	}
+    }
 	#navbar .navlink {
 	  color: white;
 	  float: left;
+	  font-size: 16px;
 	  padding: 20px 0px;
 	  text-align: center;
 	  text-decoration: none;
@@ -52,13 +66,20 @@
 	}
 	#searchform {
 	  background-color: #7bc8ff;
-	  border-radius: 10px;
+	  border-radius: 5px;
 	  display: none;
+	  height: calc(1em + 8px);
 	  padding: 5px;
 	  position: absolute;
 	  right: 10px;
       top: 50px;
 	}
+	#searchform input, #searchform button{
+	  border: 0px;
+	  border-radius: 5px;
+	  font-size: 16px;
+	  padding: 3px;
+    }
 	.arrow {
 	  bottom: 100%;
 	  border: solid transparent;
@@ -127,7 +148,14 @@
     .footlink:hover {
 	  text-decoration: underline;
 	}
-
+	@media screen and (min-width: 1550px){
+	  #navbar img {
+	    height: 64px;
+	  }
+	  #navbar .navlink {
+	    font-size: 20px ;
+	  }
+	}
 	@media screen and (max-width: 870px){
 	  #navbar #expendables {
 	    display: none;
@@ -166,7 +194,8 @@
 
 <body>
   <nav id="navbar">
-    <a href="http://cfsaero.com"><img src="https://image.ibb.co/mzxs4Q/image.png" alt="Logo"></img></a>
+  	{% load static %}
+    <a href="http://cfsaero.com"><img src='{% static "images/logo2.png" %}' alt="Logo"></img></a>
     <a class="navlink{% if request.path == '/' %} selected{% endif %}" href="/">Home</a>
 	<div id="expendables">
 	  <a class="navlink{% if request.GET.part == 'magneto accessory' %} selected{% endif %}" href="/search/?part=magneto+accessory">Accessories</a>
@@ -178,7 +207,7 @@
       <a class="navlink" href="/logout">Logout</a>
 	{% else %}
 	  <a class="navlink{% if request.path == '/login/' %} selected{% endif %}" href="/login">Log in</a>
-      <a class="navlink" href="">Contact us</a>	    
+      <a class="navlink" href="/contact">Contact us</a>	    
     {% endif %}	
 	<div id="searchything">
       <a id="nav-search" class="navlink{% if request.path|slice:"0:7" == "/search" %} selected{% endif %}">Search</a>
@@ -208,7 +237,7 @@
 	{% else %}
 	  <a class="footlink" href="/login">Log in</a>
     {% endif %}
-	<a class="footlink" href="">Contact us</a>
+	<a class="footlink" href="/contact">Contact us</a>
 
 	<p>If you would like to purchase a part or if you have any questions on its condition
       please do not hesitate to call Mark Bird on 02476 305 873 or email us at admin@cfsaero.com </p> 
