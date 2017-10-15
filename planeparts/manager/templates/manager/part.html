@@ -18,17 +18,24 @@
 	text-align: center;
   }
   #leInfo h1 {
-    color: #7bc8ff;
     font-size: 40px;
   }
   #leInfo table {
     border-collapse: collapse;
     margin: 0px auto;
   }
+  #leInfo table caption{
+    background-color: #7bc8ff;
+	font-size: 1.5em;
+	padding: 10px 0px;
+  }
   #leInfo table, #leInfo td {
 	padding: 8px 20px;
   }
-  #leInfo tr:nth-of-type(odd) {
+  #leInfo table {
+    border: 2px solid #eaeaea;
+  }
+  #leInfo tr:nth-of-type(even) {
     background-color: #eaeaea;
   }
 }
@@ -39,8 +46,8 @@
 {% block body %}
 {% if user.is_authenticated %}
   <br>
-  <a href="edit">Edit</a>
-  <a href="remove">Delete</a>
+  <a href="edit" class="mybut" >Edit</a>
+  <a href="remove" class="mybut" >Delete</a>
 {% endif %}
 
 <div id="leInfo">
@@ -48,6 +55,7 @@
     <h1>#{{ type.number }} - {{ type.description }}</h1>
     <br>
     <table>
+	  <caption>Information</caption>
       <tr>
     	<td>Number</td>
 	    <td>{{ type.number}}</td>
@@ -74,7 +82,9 @@
     </table>
   </div>
 </div>
-<p>Contact bla bla</p>
+<br>
+<br>
+<p>Interested? <a href="/contact/?part={{ type.number }}">Contact us</a></p>
 
 {% endblock %}
 

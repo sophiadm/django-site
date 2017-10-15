@@ -3,27 +3,47 @@
 {% block head %}  
   <title>Login | CFS Aero</title>
   <meta name="robots" content="noindex,follow"/>
+  
+  <style>
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px white inset;
+    }
+    #loginform {
+	  background-color: #eaeaea;
+	  margin: 0 auto;
+	  padding: 15px 0px;
+	  width: 350px;
+	}
+	h2 {
+	  color: #7bc8ff;
+	  font-size: 35px;
+	}
+	#loginform input {
+	  border: 0px;
+	  font-size: 16px;
+	  padding: 5px 10px;
+	  width: 300px;
+	}
+	#loginform input[type=submit]{
+	  width: 320px;
+	}
+  </style>
 {% endblock %}
 
 {% block body %}
     {% if form.errors %}
+	    <br>
         <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
     <br>
-    <form method="post" action="{% url 'login' %}">
+	<h2>Welcome back!</h2>
+    <form id="loginform" method="post" action="{% url 'login' %}">
     {% csrf_token %}
-        <table>
-        <tr>
-            <td>Username: </td>
-            <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-            <td>Password: </td>
-            <td>{{ form.password }}</td>
-        </tr>
-        </table>
-
-        <input type="submit" value="login" />
+        Username:<br>{{ form.username }}
+		<br><br>
+        Password:<br>{{ form.password }}
+        <br><br>
+        <input type="submit" value="login" class="mybut" />
         <input type="hidden" name="next" value="{{ next }}" />
     </form>
 {% endblock %}

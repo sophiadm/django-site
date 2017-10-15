@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.db.models import Q
 
-from .forms import PartTypeForm
+from .forms import PartTypeForm, EmailForm
 from .models import PartType
 
 def find(number=1, **conditions):
@@ -21,6 +22,29 @@ def filter_match(request, function, search_):
    
 def home(request): #Gets list of all posts for homepage
     return render(request, 'manager/home.html', {'msg': 'dw'})
+
+def contact(request):
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        
+        if form.is_valid():
+            mail = form.cleaned_data
+            
+            send_mail(
+                'Automated CFS Aero Parts Enquiry',
+                'A user is interested in part ' + mail['part'] + '.Their message: ' + mail['msg'],
+                mail['email'],
+                ['admin@cfsaero.com'],
+                fail_silently = False,
+            )
+            
+            return render(request, 'manager/error.html', {'msg': "Thanks, we will be in touch as soon as possible"})
+
+    else:
+        part = request.GET.get('part', '')
+        form = EmailForm()
+
+    return render(request, 'manager/contact.html', {'form': form, 'part':part})    
 
 #This function is hideous
 #Have fun debugging :)
@@ -98,7 +122,7 @@ def edit_type(request, part_num):
             if PartType.objects.filter(number=part.number):
                 return render(request, 'manager/new_part.html', {'form': form, 'msg':'A part with that number already exists <a href="/parts/'+part.number+'">here</a>'})
             
-            part.price = part.price.replace("£", "")
+            part.price = part.price.replace(u'\u00a3', "")
             part.save()
             return redirect('/parts/' + str(part.number))
     else:

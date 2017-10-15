@@ -21,22 +21,23 @@
 	  padding-top: 15vh;
 	}
     #partInput {
-	  border: none;
 	  font-size: 23px;
 	  padding: 5px 15px;
 	}
 	#partInput:focus {
-	  border: 1px solid black;
-	  outline: none;
+      box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2), 0 8px 26px 0 rgba(0, 0, 0, 0.19);
+      outline: -webkit-focus-ring-color auto 0px;
+	  outline-offset: 0px;
 	}
 	#LeGoButton {
-	  height: 38px;
+	  font-size: 16px;
+	  height: 40px;
 	  position: relative;
-	  top: -4px;
+	  top: -2px;
 	}
     #donthavename {
 	  /*border: 4px solid black;*/
-	  margin-bottome: 20px;
+	  margin-bottom: 20px;
 	  overflow: hidden;
 	}
 	.mid-font {
@@ -48,7 +49,7 @@
 	  float: left;
 	  line-height: 35px;
 	  padding: 10px;
-	  width: 100%;
+	  width: calc(100% - 20px);
     }
 	.btmimg {
 	  height: 200px;
@@ -69,6 +70,7 @@
 	  }
 	  .mid-font {
 	    font-size: 18px;
+		line-height: 130%;
 	  }
 	}
   </style>
