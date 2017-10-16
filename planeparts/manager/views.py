@@ -85,11 +85,26 @@ def admin(request):
 
     else:
         return redirect('/login/')
+
+def deal_with_multiple(parts, user):            
+    if len(parts) > 1:
+        for i in range(1, len(parts)): #iters through all except first
+            if parts[0].my_str() == parts[i].my_str(): #if is duplicate, delete 2nd and add to quantity of first
+                parts[0].quantity += parts[i].quantity
+                parts[0].save()
+                parts[i].delete()
+                
+            elif parts[0].my_str().split('---')[1] == parts[0].my_str().split('---')[1] and not user.is_authenticated():
+                parts[0].quantity += parts[i].quantity
+                parts = list(filter(lambda x: x != parts[i], parts))
+    return parts
+
     
 def part_detail(request, part_num):
     try:
-        part = PartType.objects.filter(number=part_num)[0]
-        return render(request, 'manager/part.html', {'type': part})
+        parts = PartType.objects.filter(number=part_num) #gets all part with correct number
+        parts = deal_with_multiple(parts, request.user)
+        return render(request, 'manager/part.html', {'parts': parts})
 
     except IndexError:
         return no_match(request)
@@ -100,7 +115,8 @@ def new_type(request):
         form = PartTypeForm(request.POST)
         if form.is_valid():
             part = form.save(commit=False)
-            if PartType.objects.filter(number=part.number):
+            if PartType.objects.filter(number=part.number) and not 'already_tried' in request.session.keys():
+                request.session['already_tried'] = 'yes'
                 return render(request, 'manager/new_part.html', {'form': form, 'msg':'A part with that number already exists <a href="/parts/'+part.number+'">here</a>'})
 
             part.price = part.price.replace("£", "")
@@ -112,8 +128,17 @@ def new_type(request):
     return render(request, 'manager/new_part.html', {'form': form})
 
 @login_required
-def edit_type(request, part_num):
-    part = get_object_or_404(PartType, number=part_num)
+def edit_type(request, part_num, part_str=""):
+    parts = PartType.objects.filter(number=part_num)
+    parts = deal_with_multiple(parts, request.user)
+
+    if part_str:
+        parts = list(filter(lambda x: x.my_str() == part_str, parts))
+        if not parts:
+            return no_match(request)
+
+    part = parts[0]
+        
     if request.method == "POST":
         form = PartTypeForm(request.POST, instance=part)
         if form.is_valid():
@@ -128,9 +153,19 @@ def edit_type(request, part_num):
     return render(request, 'manager/new_part.html', {'form': form})
 
 @login_required
-def delete_type(request, part_num):
-    part = get_object_or_404(PartType, number=part_num)
+def delete_type(request, part_num, part_str=""):
+    parts = PartType.objects.filter(number=part_num)
+    parts = deal_with_multiple(parts, request.user)
+
+    if part_str:
+        parts = list(filter(lambda x: x.my_str() == part_str, parts))
+        if not parts:
+            return no_match(request)
+
+    part = parts[0]
+
     part.delete()
+        
     return redirect('/admin/')
 
 

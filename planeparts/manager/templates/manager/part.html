@@ -5,7 +5,8 @@
   <meta name="description" content="CFS Aero is currently selling {{ type.quantity }} {{ type.description }} for £{{ type.price }}" />
   <style>
   #leInfo {
-    align-items: center; /* Vertical center alignment */
+    align-items: center; 
+	justify-content: center;
 	
     display: -webkit-box;
     display: -moz-box;
@@ -13,16 +14,15 @@
     display: -webkit-flex;
     display: flex;
 
-	justify-content: center;
 	padding: 0px 40px;
 	text-align: center;
   }
-  #leInfo h1 {
+  h1 {
     font-size: 40px;
   }
   #leInfo table {
     border-collapse: collapse;
-    margin: 0px auto;
+	margin: 15px 20px;
   }
   #leInfo table caption{
     background-color: #7bc8ff;
@@ -44,43 +44,45 @@
 {% endblock %}
 
 {% block body %}
-{% if user.is_authenticated %}
-  <br>
-  <a href="edit" class="mybut" >Edit</a>
-  <a href="remove" class="mybut" >Delete</a>
-{% endif %}
 
+<br>
+<h1>Part: {{ parts.0.number }}</h1>
 <div id="leInfo">
-  <div id="container">
-    <h1>#{{ type.number }} - {{ type.description }}</h1>
-    <br>
-    <table>
-	  <caption>Information</caption>
-      <tr>
-    	<td>Number</td>
-	    <td>{{ type.number}}</td>
-	  </tr>
-      <tr>
-        <td>Description</td>
-    	<td>{{ type.description}}</td>
-      <tr>
-	    <td>Price</td>
-	    <td>&#163;{{ type.price }}</td>
-	  <tr>
-        <td>Condition</td>
-        <td>{{ type.condition }}</td>
-	  <tr>
-        <td>Quantity</td>
-        <td>{{ type.quantity }}</td>
-	  </tr>
+  {% for type in parts %}
+	<div class="container">
 	{% if user.is_authenticated %}
-	  <tr>
-	    <td>Location</td>
-		<td>{{ type.location }}</td>
-	  </tr>
-	{% endif %}
-    </table>
-  </div>
+      <a href="{% if parts|length > 1 %}{{ type.my_str }}/{% endif %}edit" class="mybut" >Edit</a>
+      <a href="{% if parts|length > 1 %}{{ type.my_str }}/{% endif %}remove" class="mybut" >Delete</a>
+	  <br>
+    {% endif %}
+      <table>
+	    <caption>Information</caption>
+        <tr>
+          <td>Number</td>
+	      <td>{{ type.number}}</td>
+	    </tr>
+        <tr>
+          <td>Description</td>
+    	  <td>{{ type.description}}</td>
+        <tr>
+	      <td>Price</td>
+	      <td>&#163;{{ type.price }}</td>
+	    <tr>
+          <td>Condition</td>
+          <td>{{ type.condition }}</td>
+	    <tr>
+          <td>Quantity</td>
+          <td>{{ type.quantity }}</td>
+	    </tr>
+	  {% if user.is_authenticated %}
+	    <tr>
+	      <td>Location</td>
+		  <td>{{ type.location }}</td>
+	    </tr>
+	  {% endif %}
+      </table>
+	</div>
+  {% endfor %}
 </div>
 <br>
 <br>

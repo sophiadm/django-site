@@ -7,7 +7,8 @@
 <head>  
   <link rel="icon" href="http://www.cfsaero.com/favicon.ico">  
   <meta charset="UTF-8">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   {% block head %}
   {% endblock %}
   <style>
@@ -22,6 +23,10 @@
 	p {
 	  font-size: 16px;
 	}
+	h2{
+      color: #7bc8ff;
+	  font-size: 32px;
+    }
 	a {
 	  color: #7bc8ff;
 	}
@@ -39,30 +44,40 @@
 	  color: white;
     }
 	#navbar {
+	  background: black; 
+	  height: 110px;
 	  position: fixed;
-	  top: 0px;	 
+	  text-align: center;
+	  top: 0px;
+	  transition: height 1s;
 	  width: 100%;
-	  z-index: 100;
-	 
-	  background: black; /* For browsers that do not support gradients 
-      background: -webkit-linear-gradient(#010101, #000002);
-      background: -o-linear-gradient(#010101, #000002);
-      background: -moz-linear-gradient(#010101, #000002);
-      background: linear-gradient(#282828, #000030);*/
+	  z-index: 100;	
+	}
+	#navbar h2{
+	  font-size: 25px;
+	  height: 27px;
+	  left: -70px;
+	  margin: 20px 0px 0px 0px;
+	  overflow: hidden;
+	  position: relative;
+	  transition: 1s;
 	}
 	#navbar img {
 	  float: left;
-	  height: 60px;
+	  height: 90px;
+	  margin: 10px 0px;
+	  transition: height 0.55s;
     }
 	#navbar .navlink {
 	  color: white;
 	  float: left;
 	  font-size: 16px;
 	  padding: 20px 0px;
+	  position: relative;
 	  text-align: center;
 	  text-decoration: none;
 	  transition: 0.5s;
-	  width: calc(14% - 7px);
+	  width: calc(14% - 14px);
 	}
 	#navbar .selected {
 	  color: #7bc8ff;
@@ -75,7 +90,7 @@
 	  padding: 5px;
 	  position: absolute;
 	  right: 10px;
-      top: 50px;
+      top: 105px;
 	}
 	#searchform input, #searchform button{
 	  border: 0px;
@@ -83,6 +98,9 @@
 	  font-size: 16px;
 	  padding: 3px;
     }
+	#searchform button{
+	  cursor: pointer;
+	}
 	.arrow {
 	  bottom: 100%;
 	  border: solid transparent;
@@ -99,8 +117,7 @@
     }
 	#navbar .navlink:hover {
       color: #aaaaaa;
-	}
-	
+	}	
 	.partTable {
       border-collapse: collapse;
       margin: auto;
@@ -132,8 +149,8 @@
 	  width: 100%;
     }
 	.contentcontainer {
-	  margin: 60px 0px 0px 0px;
-	  min-height: calc(100vh - 202px);
+	  margin: 110px 0px 0px 0px;
+	  min-height: calc(100vh - 252px);
 	  text-align: center;
 	}
 	#footNotes {
@@ -160,6 +177,9 @@
 	  }
 	}
 	@media screen and (max-width: 870px){
+	  #navbar h2 {
+	    font-size: 25px;
+      }
 	  #navbar #expendables {
 	    display: none;
 	  }
@@ -169,6 +189,27 @@
 	  #searchything {
 	    float: right;
 		margin-right: 30px;
+	  }
+	}
+	@media screen and (max-width: 750px){
+	  #navbar {
+	    height: 60px;
+	  }
+	  #navbar img {
+	    height: 60px;
+		margin: 0px;
+	  }
+	  #navbar h2 {
+	    display: none;
+	  }
+	  #navbar.navlink {
+	    width: calc(14% - 6px);
+	  }
+	  .contentcontainer {
+	    margin-top: 60px;
+	  }
+	  #searchform {
+	    top: 50px;
 	  }
 	}
     @media screen and (max-width: 500px){
@@ -197,8 +238,9 @@
 
 <body>
   <nav id="navbar">
-  	{% load static %}
-    <a href="http://cfsaero.com"><img src='{% static "images/logo2.png" %}' alt="Logo"></img></a>
+    {% load static %}
+    <a href="http://cfsaero.com"><img src='{% static "images/logo3.png" %}' alt="CFS Aero Logo"></img></a>
+    <h2 id="thetitle">CFS Aero Classic GA Parts for Sale</h2>
     <a class="navlink{% if request.path == '/' %} selected{% endif %}" href="/">Home</a>
 	<div id="expendables">
 	  <a class="navlink{% if request.GET.part == 'magneto accessory' %} selected{% endif %}" href="/search/?part=magneto+accessory">Accessories</a>
@@ -248,9 +290,44 @@
 
   
   <script>  
+  function  changetop(remove){
+  var navbar = document.getElementById("navbar");
+  var navitems = navbar.getElementsByClassName('navlink');
+  var navimg = navbar.getElementsByTagName('img')[0];
+  var navtitle = document.getElementById("thetitle");
+  var searchbox = document.getElementById("searchform");
+  
+    if (remove){
+	  for(i=0; i<navitems.length; i++){
+	    navitems[i].style.width = "calc(14% - 6px)";
+	  }
+	  navbar.style.height = "60px";
+	  navimg.style.height = "60px";
+	  navimg.style.margin = "0px";
+	  navtitle.style.height = "0px";
+	  navtitle.style.margin = "0px";
+	  searchbox.style.top = "50px";
+	  navup = false
+	}
+	else{
+	  for(i=0; i<navitems.length; i++){
+	    navitems[i].style.width = "calc(14% - 14px)";
+	  }
+	  navbar.style.height = "110px";
+	  navimg.style.height = "90px";
+	  navimg.style.margin = "10px 0px";
+	  navtitle.style.height = "27px";
+	  navtitle.style.margin = "20px 0px 0px 0px";
+	  searchbox.style.top = "102px";
+	  navup = true
+	}
+
+  }
+  navup = true;
+  
   document.getElementById("searchything").addEventListener("mouseover", function(){
     var a = document.getElementById("nav-search")
-	var right = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 60) / 14 - 10;
+	var right = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0) - 60) / 14 - 9;
 	document.getElementsByClassName("arrow")[0].style.marginRight = right + "px";
     document.getElementById("searchform").style.display = "block";
   })
@@ -260,6 +337,23 @@
   
   var d = new Date()
   document.getElementById("copyright").innerHTML += d.getFullYear();
+  
+  window.onscroll = function(){
+    var scrolled = window.scrollY || window.scollTop || document.getElementsByTagName("html")[0].scrollTop;
+	var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+	if (width > 750){
+	  if (scrolled > 70) {
+	    if (navup){
+	      changetop(true);
+		}
+	  }
+	  else if(!navup){
+	    changetop(false);
+	  };
+	};
+  };
+
   {% block script %}
   {% endblock %}
   </script>

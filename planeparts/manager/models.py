@@ -10,4 +10,9 @@ class PartType(models.Model):
     location = models.CharField(max_length=30)
     
     def __str__(self):
-        return self.description
+        return self.number
+
+    def my_str(self):
+        not_ok = [' ', '?', '%', '<', '>', '[', ']', '{', '}', '|', '\\', '^']
+        s = self.description + self.price + self.condition + '---' + self.location
+        return "".join([char for char in s if char not in not_ok])
