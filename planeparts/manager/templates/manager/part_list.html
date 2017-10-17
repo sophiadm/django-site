@@ -1,6 +1,7 @@
 {% extends 'manager/base.html' %}
 
 {% block head %}
+  <title>Parts that match "{{ query }} | CFS Aero" </title>
   <style>  
   .partTable {
     border-collapse: collapse;
@@ -69,7 +70,7 @@ for (let i=0; i<rows.length; i++){
       window.location = '/parts/' + rows[i].getElementsByTagName('td')[0].innerHTML;
 	}
   });
-  rows[i].addEventListener("touchstart", function(){
+  rows[i].addEventListener("touchStart", function(){
     if(!stop){
       stop = 1;
       window.location = '/parts/' + rows[i].getElementsByTagName('td')[0].innerHTML;

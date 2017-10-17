@@ -2,11 +2,8 @@
 
 {% block head %}
   <title>Inventory of Aviation Parts | CFS Aero</title>
-  <meta name="description" content="CFS Aero is an EASA145 MRO who repair and overhaul modern piston and turbine engines.
-      When the company was founded over 25 years ago its focus was on Classic Engines which it
-      now no longer supports. Accordingly, the company has a large number of parts within its
-      stores which it is selling off to private collectors and commercial operators.">
-  <meta name="keywords" content="planes,aeroplanes,airpanes,classic aeroplanes,parts,plane parts,collectors,aeroplane parts">
+  <meta name="description" content="CFS Aero repair and overhaul modern piston and turbine engines. We are selling off a large number of parts to private collectors and commercial operators.">
+  <meta name="keywords" content="planes,aeroplanes,airpanes,classic aeroplanes,parts,plane parts,collectors,aeroplane parts, part number">
   <style> 
     body { background-color: black; }
 	
@@ -17,11 +14,21 @@
       background: -moz-linear-gradient(bottom right, #081659, #7bc8ff); /* For Firefox 3.6 to 15 */
 	  background: linear-gradient(to bottom right, #081659, #7bc8ff);
 	  
-	  height: 51vh;
-	  padding-top: 15vh;
+	  height: calc(100vh - 470px);
+	  position: relative;
+	}
+	#myFormyThing > div {
+	  left: 50%;
+	  margin-top: -20px;
+	  position:absolute;
+	  top:50%;
+	  
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
 	}
     #partInput {
 	  font-size: 23px;
+	  margin: auto 0px;
 	  padding: 5px 15px;
 	}
 	#partInput:focus {
@@ -58,6 +65,13 @@
 	  float: left;
 	  width: calc(60% - 20px);
 	}
+	#info h3{
+	  margin: 5px 0px;
+	  line-height: 0.8em;
+	}
+	#info p {
+	  margin: 15px 0px;
+	}
 	@media screen and (max-width: 550px){
 	  #partInput {
 	    font-size: 18px;
@@ -72,22 +86,34 @@
 		line-height: 130%;
 	  }
 	}
+	@media screen and (max-height: 700px){
+	  #myFormyThing {
+	    height: 50vh;
+	  }
+	}
   </style>
 {% endblock %}
 
 {% block body %}
   <form id="myFormyThing" action="{% url 'search' %}" method="get" accept-charset="utf-8">
+	<div style="">
  	<p class="mid-font" style="color: white;">
 	  {% if msg != "dw" and msg %}{{ msg }}<br>{% else %}Enter the part number you would like to locate or a relevent keyword in its description{% endif %}
 	</p>
-	<div style="">
+	<div>
       <input size="35" id="partInput" name="part" placeholder="Search" type="text"><!--
       --><button id="LeGoButton" type="submit">Go</button>
+	</div>
 	</div>
   </form>
   
  <div id="donthavename">
     <div id="info">
+	  {% load static %}
+      <img class='btmimg' alt="A plane on a runway" src="{% static "images/plane1.jpg" %}"/>
+	  <img class='btmimg' alt="An old-fashioned plane" src="{% static "images/plane2.jpg" %}"/>
+	  <img class='btmimg' alt="A plane engine" src="{% static "images/engine.jpg" %}"/>
+
       <h3>WHO ARE WE?</h3>
       <p class="mid-font">CFS Aero is an EASA145 MRO who repair and overhaul modern piston and turbine engines.<br>
       When the company was founded over 25 years ago its focus was on Classic Engines which it
@@ -97,11 +123,6 @@
       <p class="mid-font">All parts are sold as removed and most are in good condition (some are brand new and in their original packaging).<br>
 	  We will gladly advise you of the visual condition of any part you are interested in.</br>
 	  Most parts can also be overhauled and supplied with a Certificate of Conformity at an additional cost.</p>
-	  {% load static %}
-
-      <img class='btmimg' alt="A plane on a runway" src="{% static "images/plane1.jpg" %}"/>
-	  <img class='btmimg' alt="An old-fashioned plane" src="{% static "images/plane2.jpg" %}"/>
-	  <img class='btmimg' alt="A plane engine" src="{% static "images/engine.jpg" %}"/>
 	  </div> 
   </div>
 {% endblock %}

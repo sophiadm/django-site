@@ -3,6 +3,7 @@
 {% block head %}
   <title>{{ type.number }} - {{ type.description }} | CFS Aero Parts</title>
   <meta name="description" content="CFS Aero is currently selling {{ type.quantity }} {{ type.description }} for £{{ type.price }}" />
+  <meta name="keywords" content="planes,aeroplanes,airpanes,classic aeroplanes,parts,plane parts,aeroplane parts, part number,{{ type.number }},{{ type.description }}">
   <style>
   #leInfo {
     align-items: center; 
@@ -86,7 +87,7 @@
 </div>
 <br>
 <br>
-<p>Interested? <a href="/contact/?part={{ type.number }}">Contact us</a></p>
+<p>Interested? <a href="/contact/?part={{ part.0.number }}">Contact us</a></p>
 
 {% endblock %}
 
