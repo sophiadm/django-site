@@ -86,17 +86,36 @@ def admin(request):
     else:
         return redirect('/login/')
 
+def view_all(request):
+    parts = PartType.objects.all()
+    return render(request, 'manager/part_list.html', {'parts': parts, 'query': 'all'})
+   
 def deal_with_multiple(parts, user):            
     if len(parts) > 1:
-        for i in range(1, len(parts)): #iters through all except first
-            if parts[0].my_str() == parts[i].my_str(): #if is duplicate, delete 2nd and add to quantity of first
-                parts[0].quantity += parts[i].quantity
-                parts[0].save()
-                parts[i].delete()
+        for i in range(len(parts)): #iters through all except first
+            for j in range(len(parts)):
+                if i == j:
+                    continue
+
+                if parts[i].description == "DEL ME 123" or parts[j].description == "DEL ME 123":
+                    continue
                 
-            elif parts[0].my_str().split('---')[1] == parts[0].my_str().split('---')[1] and not user.is_authenticated():
-                parts[0].quantity += parts[i].quantity
-                parts = list(filter(lambda x: x != parts[i], parts))
+                if parts[i].my_str() == parts[j].my_str(): #if is duplicate, delete 2nd and add to quantity of first
+                    parts[i].quantity += parts[j].quantity
+                    parts[i].save()
+                    parts[j].delete()
+                    parts[j].description = "DEL ME 123"
+                    
+                elif parts[i].my_str().split('---')[1] == parts[j].my_str().split('---')[1] and not user.is_authenticated():
+
+                    if parts[i].description == "DEL ME 1234" or parts[j].description == "DEL ME 1234":
+                        continue
+                
+                    parts[j].quantity += parts[i].quantity
+                    parts[j].description = "DEL ME 1234"
+
+        parts = [part for part in parts if part.description[:10] != "DEL ME 123"]
+
     return parts
 
     
