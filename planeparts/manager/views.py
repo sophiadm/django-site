@@ -120,13 +120,12 @@ def deal_with_multiple(parts, user):
 
     
 def part_detail(request, part_num):
-    try:
-        parts = PartType.objects.filter(number=part_num) #gets all part with correct number
-        parts = deal_with_multiple(parts, request.user)
-        return render(request, 'manager/part.html', {'parts': parts})
-
-    except IndexError:
-        return no_match(request)
+    parts = PartType.objects.filter(number=part_num) #gets all part with correct number
+    parts = deal_with_multiple(parts, request.user)
+    if not parts: #in case no parts are found
+        return redirect('/search/?part=' + part_num)
+    
+    return render(request, 'manager/part.html', {'parts': parts})
         
 @login_required
 def new_type(request):
