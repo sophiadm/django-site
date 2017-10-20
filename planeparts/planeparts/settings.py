@@ -125,7 +125,7 @@ LOGIN_REDIRECT_URL = "/admin/"
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'sophiadm'
-EMAIL_HOST_PASSWORD = "I'm not that much of a noob"
+EMAIL_HOST_PASSWORD = 'Nice try motherfudgers
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

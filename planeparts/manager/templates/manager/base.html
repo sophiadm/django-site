@@ -130,6 +130,8 @@
 	.partTable {
       border-collapse: collapse;
       margin: auto;
+	  max-width: 100%;
+	  overflow-x: auto;
       text-align: center;
     }
     .partTable tr {
@@ -244,9 +246,9 @@
     <h2 id="thetitle">CFS Aero Classic GA Parts for Sale</h2>
     <a class="navlink{% if request.path == '/' %} selected{% endif %}" href="/">Home</a>
 	<div id="expendables">
-	  <a class="navlink{% if request.GET.part == 'magneto accessory' %} selected{% endif %}" href="/search/?part=magneto+accessory">Accessories</a>
+	  <a class="navlink{% if request.GET.part == 'magneto' %} selected{% endif %}" href="/search/?part=magneto">Magnetos</a>
 	  <a class="navlink{% if request.GET.part == 'pratt whitney' %} selected{% endif %}" href="/search/?part=pratt+whitney">Pratt &amp; Whitney</a>
-	  <a class="navlink{% if request.path == '/parts/all' %} selected{% endif %}" href="/parts/all">All parts</a>
+	  <a class="navlink{% if request.path == '/parts/' %} selected{% endif %}" href="/parts/">All parts</a>
 	</div>
     {% if user.is_authenticated %}
    	  <a class="navlink{% if request.path == '/admin/' %} selected{% endif %}" href="/admin">Admin</a>
@@ -274,9 +276,9 @@
     <p id="copyright">&#9400; CFS Aero </p>
 
 	<a class="footlink" href="/">Home</a>
-    <a class="footlink" href="/search/?part=magneto+accessory">Accessories</a>
+    <a class="footlink" href="/search/?part=magneto">Magnetos</a>
 	<a class="footlink" href="/search/?part=pratt+whitney">Pratt &amp; Whitney</a>
-	<a class="footlink" href="/parts/all">All parts</a>
+	<a class="footlink" href="/parts/">All parts</a>
     {% if user.is_authenticated %}
 	  <a class="footlink" href="/admin">Admin</a>
       <a class="footlink" href="/logout">Logout</a>

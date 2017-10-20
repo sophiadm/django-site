@@ -62,19 +62,20 @@
 
 {% block script %}
 rows = document.getElementsByClassName("row");
-stop = 0
-for (let i=0; i<rows.length; i++){
-  rows[i].addEventListener("click", function(){
+stop = 0;
+
+function myfunc(i){
+  return function(){
     if(!stop){
       stop = 1;
-      window.location = '/parts/' + rows[i].getElementsByTagName('td')[0].innerHTML;
-	}
-  });
-  rows[i].addEventListener("touchStart", function(){
-    if(!stop){
-      stop = 1;
-      window.location = '/parts/' + rows[i].getElementsByTagName('td')[0].innerHTML;
-	}
-  });
+      var goto = '/parts/' + rows[i].getElementsByTagName('td')[0].innerHTML;
+	  window.location = goto;	  
+    };
+  };
 }
+for (var i=0; i<rows.length; i++){
+  rows[i].addEventListener("click", myfunc(i));
+  rows[i].addEventListener("touchstart", myfunc(i));
+}
+
 {% endblock %}

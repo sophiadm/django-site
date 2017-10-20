@@ -60,7 +60,7 @@ for (let i=0; i<rows.length; i++){
       window.location = '/parts/' + rows[i].getElementsByTagName('td')[0].innerHTML;
 	}
   });
-  rows[i].addEventListener("touchStart", function(){
+  rows[i].addEventListener("touchstart", function(){
     if(!stop){
       stop = 1;
       window.location = '/parts/' + rows[i].getElementsByTagName('td')[0].innerHTML;
