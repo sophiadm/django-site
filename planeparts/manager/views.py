@@ -89,35 +89,37 @@ def admin(request):
 def view_all(request):
     parts = PartType.objects.all()
     return render(request, 'manager/part_list.html', {'parts': parts, 'query': 'all'})
-   
+
+#Okay so this function is a little icky
+#It is called when a user wants to view the page of a part that has multiple entries of the same number
+#It iterate through and compares all the parts sometimes merging two that are identical
 def deal_with_multiple(parts, user):            
-    if len(parts) > 1:
-        for i in range(len(parts)): #iters through all except first
-            for j in range(len(parts)):
-                if i == j:
-                    continue
+    if not len(parts) > 1:
+        return parts
+    for i in range(len(parts)): #iters through all except first
+        for j in range(len(parts)):
+            if i == j:
+                continue
 
-                if parts[i].description == "DEL ME 123" or parts[j].description == "DEL ME 123":
-                    continue
+            if parts[i].description == "DEL ME 123" or parts[j].description == "DEL ME 123": #if parts are going to be deleted from queryset skip
+                continue
+            
+            if parts[i].my_str() == parts[j].my_str(): #if is duplicate, delete 2nd and add to quantity of first
+                parts[i].quantity += parts[j].quantity
+                parts[i].save()
+                parts[j].delete()
+                parts[j].description = "DEL ME 123" #this part needs to be delted from queryset
                 
-                if parts[i].my_str() == parts[j].my_str(): #if is duplicate, delete 2nd and add to quantity of first
-                    parts[i].quantity += parts[j].quantity
-                    parts[i].save()
-                    parts[j].delete()
-                    parts[j].description = "DEL ME 123"
-                    
-                elif parts[i].my_str().split('---')[1] == parts[j].my_str().split('---')[1] and not user.is_authenticated():
+            elif parts[i].my_str().split('---')[0] == parts[j].my_str().split('---')[0] and not user.is_authenticated(): #if parts are exactly the same apart from location
 
-                    if parts[i].description == "DEL ME 1234" or parts[j].description == "DEL ME 1234":
-                        continue
-                
-                    parts[j].quantity += parts[i].quantity
-                    parts[j].description = "DEL ME 1234"
+                if parts[i].description == "DEL ME 1234" or parts[j].description == "DEL ME 1234": #ignores if they will be deleted
+                    continue
+            
+                parts[j].quantity += parts[i].quantity
+                parts[j].description = "DEL ME 1234" #this needs to be deleted
 
-        parts = [part for part in parts if part.description[:10] != "DEL ME 123"]
-
+    parts = [part for part in parts if "DEL ME 123" not in part.description[:10]]
     return parts
-
     
 def part_detail(request, part_num):
     parts = PartType.objects.filter(number=part_num) #gets all part with correct number
@@ -186,8 +188,5 @@ def delete_type(request, part_num, part_str=""):
         
     return redirect('/admin/')
 
-
 def no_match(request):
     return render(request, 'manager/error.html', {'msg': "The page you're looking for doesn't exist"})
-   
-    
