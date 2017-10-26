@@ -4,6 +4,8 @@
   <title>Inventory of Aviation Parts | CFS Aero</title>
   <meta name="description" content="CFS Aero repair and overhaul modern piston and turbine engines. We are selling off a large number of parts to private collectors and commercial operators.">
   <meta name="keywords" content="planes,aeroplanes,airpanes,classic aeroplanes,parts,plane parts,collectors,aeroplane parts, part number">
+  {% if msg != "dw" and msg %}<link rel="canonical" href="/">{% endif %}
+
   <style> 
     body { background-color: black; }
 	
@@ -87,7 +89,7 @@
 		line-height: 130%;
 	  }
 	}
-	@media screen and (max-height: 700px){
+	@media screen and (max-height: 680px){
 	  #myFormyThing {
 	    height: 50vh;
 	  }
@@ -97,6 +99,7 @@
 
 {% block body %}
   <form id="myFormyThing" action="{% url 'search' %}" method="get" accept-charset="utf-8">
+    {% csrf_token %}
 	<div style="">
  	<p class="mid-font" style="color: white;">
 	  {% if msg != "dw" and msg %}{{ msg }}<br>{% else %}Enter the part number you would like to locate or a relevent keyword in its description{% endif %}

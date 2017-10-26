@@ -7,7 +7,7 @@
     h2 {
 	  color: #7bc8ff;
 	  font-size: 40px;
-	  margin: 160px 0px 10px
+	  margin: 120px 0px 10px
 	}
     #contact {
 	  background-color: #eaeaea;
@@ -51,8 +51,8 @@
     <br>
 
     <form method="POST" id="contact" action="{% url 'contact' %}">
-    {% csrf_token %}
-        <input type="text" name="part" value="{{ part }}" placeholder="Part number" value="{{ part }}" required /><br>
+        {% csrf_token %}
+        <input type="text" name="part" value="{{ part }}" placeholder="Part number" required /><br>
 		<input type="email" name="email" placeholder="Your email address" required /><br>
 		<textarea name="msg" rows="5" cols="50" placeholder="Your message" required ></textarea>
 

@@ -27,6 +27,19 @@
 	#loginform input[type=submit]{
 	  width: 320px;
 	}
+	
+	@media screen and (max-width: 350px){
+	  #loginform {
+	    width: calc(100% - 20px);
+	  }
+	  #loginform input {
+        width: calc(100% - 70px);
+	  }
+	  #loginform input[type=submit]{
+	    width: calc(100% - 50px);
+	  }
+    }
+
   </style>
 {% endblock %}
 
@@ -38,7 +51,7 @@
     <br>
 	<h2>Welcome back!</h2>
     <form id="loginform" method="post" action="{% url 'login' %}">
-    {% csrf_token %}
+        {% csrf_token %}
         Username:<br>{{ form.username }}
 		<br><br>
         Password:<br>{{ form.password }}

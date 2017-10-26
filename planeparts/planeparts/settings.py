@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'tx$jjl6v@+&yv=)5!kat(6)ib-+p(%4yu2_w1n@)y)$3idolx5'
+SECRET_KEY = 'sx$jjl6v@+&yv=)5!kat(6)ib-+p(%4yu2_w1n@)y)$3idolx5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,7 +28,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'sophiadm.pythonanywhere.com',
     'cfsaeroparts.com',
-    '127.0.0.1',
 ]
 
 # Application definition
@@ -125,7 +124,7 @@ LOGIN_REDIRECT_URL = "/admin/"
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'sophiadm'
-EMAIL_HOST_PASSWORD = 'Nice try motherfudgers
+EMAIL_HOST_PASSWORD = 'haha no frikkin ay way'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
