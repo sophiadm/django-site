@@ -3,7 +3,7 @@
 {% block head %}
   <title>{{ parts.0.number }} | CFS Aero Parts</title>
   <meta name="description" content="CFS Aero is currently selling {{ parts.0.quantity }} {{ parts.0.description }} for £{{ parts.0.price }}" />
-  <meta name="keywords" content="planes,aeroplanes,airpanes,classic aeroplanes,parts,plane parts,aeroplane parts, part number,{{ parts.0.number }},{{ parts.0.description }}">
+  <meta name="keywords" content="CFS Aero,planes,aeroplanes,airplanes,classic,parts,plane parts,aeroplane parts, part number,{{ parts.0.number }},{{ parts.0.description }}">
   <style>
   #leInfo {
     align-items: center; 
@@ -39,7 +39,12 @@
   #leInfo tr:nth-of-type(even) {
     background-color: #eaeaea;
   }
-}
+  
+  @media screen and (max-width: 430px){
+    #leInfo {
+	  display: block;
+	}	  
+  }
 
   </style>
 {% endblock %}
@@ -83,6 +88,7 @@
 	  {% endif %}
       </table>
 	</div>
+	<br>
   {% endfor %}
 </div>
 <br>

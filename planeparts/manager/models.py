@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 class PartType(models.Model):
@@ -16,3 +17,6 @@ class PartType(models.Model):
         not_ok = [' ', '?', '%', '<', '>', '[', ']', '{', '}', '|', '\\', '^']
         s = self.description + self.price + self.condition + '---' + self.location
         return "".join([char for char in s if char not in not_ok])
+
+    def get_absolute_url(self):
+        return reverse('part_detail', args=[self.number])

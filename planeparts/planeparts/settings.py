@@ -23,11 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'sx$jjl6v@+&yv=)5!kat(6)ib-+p(%4yu2_w1n@)y)$3idolx5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'sophiadm.pythonanywhere.com',
-    'cfsaeroparts.com',
+    'www.cfsaeroparts.com',
 ]
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'manager',
 ]
 
@@ -124,7 +125,7 @@ LOGIN_REDIRECT_URL = "/admin/"
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'sophiadm'
-EMAIL_HOST_PASSWORD = 'haha no frikkin ay way'
+EMAIL_HOST_PASSWORD = 'haha fudge off'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
